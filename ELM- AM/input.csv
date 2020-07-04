@@ -1,0 +1,8 @@
+MessageID,MessageBody,Phone number,Email Address,Twitter Handle,Email Subject,Sport Centre Code,Nature of Incident
+S000000001,This is my text AFK message bla bla bla,7956654432,,,,,
+E000000001,This is an email message bla bla bla,,joe@blogs.com,,First Test Subject,,
+T000000001,This is my twitter post bla bla bla,,,@FirstHandleTest,,,
+S000000002,Lol this is my second text message LOL bla bla bla,7954443345,,,,,
+E000000002,This is another email message https://lol.com bla bla www.jokes.com bla,,Adam@blogs.co.uk,,Second Test Subject,,
+T000000002,This is my second twitter post bla bla bla,,,@SecondHandleTest,,,
+E000000003,There has been an incident at our branch where staff abuse occurred. Help ASAP,,Adam@blogs.co.uk,,SIR 08/05/20,66-666-99,Staff Abuse
