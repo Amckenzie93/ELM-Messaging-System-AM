@@ -23,7 +23,6 @@ namespace ELM__AM
 
     public partial class MainWindow : Form
     {
-        public string getdata;
         public DataCollection data = new DataCollection();
 
         string abbreviations = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "textwords.csv");
@@ -55,7 +54,6 @@ namespace ELM__AM
                 input = streamReader.ReadLine().Split(',');
                 var identifier = input[0].First().ToString();
                 bool proceed = true;
-
                 foreach (var id in data.smsMessages)
                 {
                     if (input[0] == id.ID)
@@ -67,13 +65,10 @@ namespace ELM__AM
                 {
                     if (identifier.ToLower() == "s")
                     {
-
                         Sms text = new Sms();
                         text.ID = input[0];
-
                         text.Textmessage = WordAbreviations(input[1]);
                         text.PhoneNumber = input[2];
-
                         data.smsUniqueID.Add(text.ID);
                         data.smsMessages.Add(text);
                     }
@@ -95,7 +90,6 @@ namespace ELM__AM
                         email.EmailMessage = LinkCheck(WordAbreviations(input[1]));
                         email.EmailAddress = input[3];
                         email.Subject = input[5];
-
                         if (email.Subject.Contains("SIR"))
                         {
                             SIR report = new SIR();
@@ -105,7 +99,6 @@ namespace ELM__AM
                             email.IncidentCode = input[7];
                             data.sIRMessages.Add(report);
                         }
-
                         data.emailUniqueID.Add(email.ID);
                         data.emailMessages.Add(email);
                     }
@@ -126,7 +119,7 @@ namespace ELM__AM
                         tweet.TwitterMessage = WordAbreviations(input[1]);
                         tweet.TwitterID = input[4];
                         data.twitterUniqueID.Add(tweet.ID);
-                        data.twitterHandleUse.Add(tweet.ID);
+                        data.twitterHandleUse.Add(tweet.TwitterID);
                         data.twitterMessages.Add(tweet);
                     }
                 }
@@ -146,7 +139,7 @@ namespace ELM__AM
             return val;
         }
 
-        public string WordAbreviations(string message)
+        private string WordAbreviations(string message)
         {
             StreamReader streamReader = new StreamReader(abbreviations);
             string[] input = new string[File.ReadAllLines(abbreviations).Length];
@@ -206,14 +199,12 @@ namespace ELM__AM
             smsMessagesList.Items.Clear();
             emailMessageList.Items.Clear();
             twitterMessageList.Items.Clear();
-
             foreach (Sms item in data.smsMessages)
             {
                 var row = new string[] { item.ID, item.PhoneNumber, item.Textmessage };
                 var listItem = new ListViewItem(row);
                 smsMessagesList.Items.Add(listItem);
             }
-
             foreach (var item in data.emailMessages)
             {
                 var row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage };
@@ -227,7 +218,6 @@ namespace ELM__AM
                 }
                 emailMessageList.Items.Add(listItem);
             }
-
             foreach (var item in data.twitterMessages)
             {
                 var row = new string[] { item.ID, item.TwitterID, item.TwitterMessage };
@@ -237,7 +227,7 @@ namespace ELM__AM
             autosizeColumns();
         }
 
-        public void autosizeColumns()
+        private void autosizeColumns()
         {
             smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -306,9 +296,11 @@ namespace ELM__AM
             quarentine.Show();
         }
 
-        private void Quit_Click(object sender, EventArgs e)
+        private void TrendingListButton_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Hide();
+            Trending trendinigForm = new Trending(this);
+            trendinigForm.Show();
         }
     }
 }

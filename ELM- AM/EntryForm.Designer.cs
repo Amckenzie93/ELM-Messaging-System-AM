@@ -319,6 +319,7 @@
             // EntryForm
             // 
             this.ClientSize = new System.Drawing.Size(470, 682);
+            this.ControlBox = false;
             this.Controls.Add(this.label10);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -335,8 +336,9 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EntryForm";
-            this.Text = " ";
+            this.Text = "New Entry Form";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

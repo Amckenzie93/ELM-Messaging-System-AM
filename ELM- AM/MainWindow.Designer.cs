@@ -46,12 +46,12 @@
             this.TwitterMessage = new System.Windows.Forms.ColumnHeader();
             this.NewEntryButton = new System.Windows.Forms.Button();
             this.QuarentineButton = new System.Windows.Forms.Button();
-            this.Quit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.JSONExportButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.TrendingListButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ImportAllButton
@@ -181,7 +181,7 @@
             // 
             // NewEntryButton
             // 
-            this.NewEntryButton.Location = new System.Drawing.Point(247, 95);
+            this.NewEntryButton.Location = new System.Drawing.Point(226, 95);
             this.NewEntryButton.Name = "NewEntryButton";
             this.NewEntryButton.Size = new System.Drawing.Size(144, 49);
             this.NewEntryButton.TabIndex = 4;
@@ -191,24 +191,13 @@
             // 
             // QuarentineButton
             // 
-            this.QuarentineButton.Location = new System.Drawing.Point(430, 95);
+            this.QuarentineButton.Location = new System.Drawing.Point(386, 95);
             this.QuarentineButton.Name = "QuarentineButton";
             this.QuarentineButton.Size = new System.Drawing.Size(164, 49);
             this.QuarentineButton.TabIndex = 5;
             this.QuarentineButton.Text = "Quarentine List";
             this.QuarentineButton.UseVisualStyleBackColor = true;
             this.QuarentineButton.Click += new System.EventHandler(this.QuarentineButton_Click_1);
-            // 
-            // Quit
-            // 
-            this.Quit.BackColor = System.Drawing.Color.Gainsboro;
-            this.Quit.Location = new System.Drawing.Point(995, 95);
-            this.Quit.Name = "Quit";
-            this.Quit.Size = new System.Drawing.Size(125, 49);
-            this.Quit.TabIndex = 6;
-            this.Quit.Text = "Quit";
-            this.Quit.UseVisualStyleBackColor = false;
-            this.Quit.Click += new System.EventHandler(this.Quit_Click);
             // 
             // label1
             // 
@@ -239,7 +228,7 @@
             // 
             // JSONExportButton
             // 
-            this.JSONExportButton.Location = new System.Drawing.Point(635, 95);
+            this.JSONExportButton.Location = new System.Drawing.Point(567, 95);
             this.JSONExportButton.Name = "JSONExportButton";
             this.JSONExportButton.Size = new System.Drawing.Size(150, 49);
             this.JSONExportButton.TabIndex = 10;
@@ -257,15 +246,25 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Euston Leisure - Message Filtering Service";
             // 
+            // TrendingListButton
+            // 
+            this.TrendingListButton.Location = new System.Drawing.Point(734, 95);
+            this.TrendingListButton.Name = "TrendingListButton";
+            this.TrendingListButton.Size = new System.Drawing.Size(134, 49);
+            this.TrendingListButton.TabIndex = 12;
+            this.TrendingListButton.Text = "Trending List";
+            this.TrendingListButton.UseVisualStyleBackColor = true;
+            this.TrendingListButton.Click += new System.EventHandler(this.TrendingListButton_Click);
+            // 
             // MainWindow
             // 
             this.ClientSize = new System.Drawing.Size(1156, 718);
+            this.Controls.Add(this.TrendingListButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.JSONExportButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Quit);
             this.Controls.Add(this.QuarentineButton);
             this.Controls.Add(this.NewEntryButton);
             this.Controls.Add(this.twitterMessageList);
@@ -303,12 +302,12 @@
         private System.Windows.Forms.ColumnHeader IncidentCode;
         private System.Windows.Forms.Button NewEntryButton;
         private System.Windows.Forms.Button QuarentineButton;
-        private System.Windows.Forms.Button Quit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button JSONExportButton;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button TrendingListButton;
     }
 }
 
