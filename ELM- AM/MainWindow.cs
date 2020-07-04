@@ -71,6 +71,8 @@ namespace ELM__AM
                         text.PhoneNumber = input[2];
                         data.smsUniqueID.Add(text.ID);
                         data.smsMessages.Add(text);
+                        updateListView();
+                        System.Threading.Thread.Sleep(300);
                     }
                 }
 
@@ -101,6 +103,8 @@ namespace ELM__AM
                         }
                         data.emailUniqueID.Add(email.ID);
                         data.emailMessages.Add(email);
+                        updateListView();
+                        System.Threading.Thread.Sleep(300);
                     }
                 }
                 foreach (var id in data.twitterMessages)
@@ -121,10 +125,12 @@ namespace ELM__AM
                         data.twitterUniqueID.Add(tweet.ID);
                         data.twitterHandleUse.Add(tweet.TwitterID);
                         data.twitterMessages.Add(tweet);
+                        updateListView();
+                        System.Threading.Thread.Sleep(300);
                     }
                 }
             }
-            updateListView();
+            
         }
 
         public string LinkCheck(string val)
