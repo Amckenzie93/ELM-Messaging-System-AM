@@ -51,11 +51,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.JSONExportButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ImportAllButton
             // 
-            this.ImportAllButton.Location = new System.Drawing.Point(39, 33);
+            this.ImportAllButton.Location = new System.Drawing.Point(39, 95);
             this.ImportAllButton.Name = "ImportAllButton";
             this.ImportAllButton.Size = new System.Drawing.Size(172, 49);
             this.ImportAllButton.TabIndex = 0;
@@ -71,9 +72,9 @@
             this.TextMessage});
             this.smsMessagesList.GridLines = true;
             this.smsMessagesList.HideSelection = false;
-            this.smsMessagesList.Location = new System.Drawing.Point(39, 128);
+            this.smsMessagesList.Location = new System.Drawing.Point(39, 190);
             this.smsMessagesList.Name = "smsMessagesList";
-            this.smsMessagesList.Size = new System.Drawing.Size(1115, 138);
+            this.smsMessagesList.Size = new System.Drawing.Size(1081, 138);
             this.smsMessagesList.TabIndex = 1;
             this.smsMessagesList.UseCompatibleStateImageBehavior = false;
             // 
@@ -105,9 +106,9 @@
             this.BranchCode,
             this.IncidentCode});
             this.emailMessageList.HideSelection = false;
-            this.emailMessageList.Location = new System.Drawing.Point(39, 482);
+            this.emailMessageList.Location = new System.Drawing.Point(39, 544);
             this.emailMessageList.Name = "emailMessageList";
-            this.emailMessageList.Size = new System.Drawing.Size(1115, 139);
+            this.emailMessageList.Size = new System.Drawing.Size(1081, 139);
             this.emailMessageList.TabIndex = 2;
             this.emailMessageList.UseCompatibleStateImageBehavior = false;
             // 
@@ -154,9 +155,9 @@
             this.TwitterHandle,
             this.TwitterMessage});
             this.twitterMessageList.HideSelection = false;
-            this.twitterMessageList.Location = new System.Drawing.Point(39, 308);
+            this.twitterMessageList.Location = new System.Drawing.Point(39, 370);
             this.twitterMessageList.Name = "twitterMessageList";
-            this.twitterMessageList.Size = new System.Drawing.Size(1115, 132);
+            this.twitterMessageList.Size = new System.Drawing.Size(1081, 132);
             this.twitterMessageList.TabIndex = 3;
             this.twitterMessageList.UseCompatibleStateImageBehavior = false;
             // 
@@ -180,7 +181,7 @@
             // 
             // NewEntryButton
             // 
-            this.NewEntryButton.Location = new System.Drawing.Point(247, 33);
+            this.NewEntryButton.Location = new System.Drawing.Point(247, 95);
             this.NewEntryButton.Name = "NewEntryButton";
             this.NewEntryButton.Size = new System.Drawing.Size(144, 49);
             this.NewEntryButton.TabIndex = 4;
@@ -190,7 +191,7 @@
             // 
             // QuarentineButton
             // 
-            this.QuarentineButton.Location = new System.Drawing.Point(430, 33);
+            this.QuarentineButton.Location = new System.Drawing.Point(430, 95);
             this.QuarentineButton.Name = "QuarentineButton";
             this.QuarentineButton.Size = new System.Drawing.Size(164, 49);
             this.QuarentineButton.TabIndex = 5;
@@ -201,7 +202,7 @@
             // Quit
             // 
             this.Quit.BackColor = System.Drawing.Color.Gainsboro;
-            this.Quit.Location = new System.Drawing.Point(1029, 33);
+            this.Quit.Location = new System.Drawing.Point(995, 95);
             this.Quit.Name = "Quit";
             this.Quit.Size = new System.Drawing.Size(125, 49);
             this.Quit.TabIndex = 6;
@@ -212,7 +213,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 110);
+            this.label1.Location = new System.Drawing.Point(38, 172);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 15);
             this.label1.TabIndex = 7;
@@ -221,7 +222,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(39, 290);
+            this.label2.Location = new System.Drawing.Point(39, 352);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 15);
             this.label2.TabIndex = 8;
@@ -230,7 +231,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 464);
+            this.label3.Location = new System.Drawing.Point(38, 526);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 15);
             this.label3.TabIndex = 9;
@@ -238,7 +239,7 @@
             // 
             // JSONExportButton
             // 
-            this.JSONExportButton.Location = new System.Drawing.Point(635, 33);
+            this.JSONExportButton.Location = new System.Drawing.Point(635, 95);
             this.JSONExportButton.Name = "JSONExportButton";
             this.JSONExportButton.Size = new System.Drawing.Size(150, 49);
             this.JSONExportButton.TabIndex = 10;
@@ -246,9 +247,20 @@
             this.JSONExportButton.UseVisualStyleBackColor = true;
             this.JSONExportButton.Click += new System.EventHandler(this.JSONExportButton_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(39, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(471, 32);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Euston Leisure - Message Filtering Service";
+            // 
             // MainWindow
             // 
-            this.ClientSize = new System.Drawing.Size(1194, 655);
+            this.ClientSize = new System.Drawing.Size(1156, 718);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.JSONExportButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -260,7 +272,10 @@
             this.Controls.Add(this.emailMessageList);
             this.Controls.Add(this.smsMessagesList);
             this.Controls.Add(this.ImportAllButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "ELM System";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,6 +308,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button JSONExportButton;
+        private System.Windows.Forms.Label label4;
     }
 }
 
