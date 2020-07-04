@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -23,14 +24,7 @@ namespace ELM__AM
     public partial class MainWindow : Form
     {
         public string getdata;
-        public List<Sms> smsMessages = new List<Sms>();
-        public List<Email> emailMessages = new List<Email>();
-        public List<Twitter> twitterMessages = new List<Twitter>();
-        public List<SIR> sIRMessages = new List<SIR>();
-        public List<string> quarantinedList = new List<string>();
-        public HashSet<string> smsUniqueID = new HashSet<string>();
-        public HashSet<string> twitterUniqueID = new HashSet<string>();
-        public HashSet<string> emailUniqueID = new HashSet<string>();
+        public DataCollection data = new DataCollection();
 
         string abbreviations = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "textwords.csv");
         string inputFile = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "input.csv");
@@ -39,10 +33,19 @@ namespace ELM__AM
         public MainWindow()
         {
             InitializeComponent();
+            smsMessagesList.View = View.Details;
+            smsMessagesList.GridLines = true;
+            smsMessagesList.FullRowSelect = true;
+            twitterMessageList.View = View.Details;
+            twitterMessageList.GridLines = true;
+            twitterMessageList.FullRowSelect = true;
+            emailMessageList.View = View.Details;
+            emailMessageList.GridLines = true;
+            emailMessageList.FullRowSelect = true;
         }
 
 
-        private void importAll_Click(object sender, EventArgs e)
+        private void ImportAllButton_Click(object sender, EventArgs e)
         {
             StreamReader streamReader = new StreamReader(inputFile);
             string[] input = new string[File.ReadAllLines(inputFile).Length];
@@ -53,7 +56,7 @@ namespace ELM__AM
                 var identifier = input[0].First().ToString();
                 bool proceed = true;
 
-                foreach (var id in smsMessages)
+                foreach (var id in data.smsMessages)
                 {
                     if (input[0] == id.ID)
                     {
@@ -71,12 +74,12 @@ namespace ELM__AM
                         text.Textmessage = WordAbreviations(input[1]);
                         text.PhoneNumber = input[2];
 
-                        smsUniqueID.Add(text.ID);
-                        smsMessages.Add(text);
+                        data.smsUniqueID.Add(text.ID);
+                        data.smsMessages.Add(text);
                     }
                 }
 
-                foreach (var id in emailMessages)
+                foreach (var id in  data.emailMessages)
                 {
                     if (input[0] == id.ID)
                     {
@@ -98,14 +101,16 @@ namespace ELM__AM
                             SIR report = new SIR();
                             report.BranchCode = input[6];
                             report.IncidentCode = input[7];
-                            sIRMessages.Add(report);
+                            email.BranchCode = input[6];
+                            email.IncidentCode = input[7];
+                             data.sIRMessages.Add(report);
                         }
 
-                        emailUniqueID.Add(email.ID);
-                        emailMessages.Add(email);
+                        data.emailUniqueID.Add(email.ID);
+                         data.emailMessages.Add(email);
                     }
                 }
-                foreach (var id in twitterMessages)
+                foreach (var id in  data.twitterMessages)
                 {
                     if (input[0] == id.ID)
                     {
@@ -120,23 +125,21 @@ namespace ELM__AM
                         tweet.ID = input[0];
                         tweet.TwitterMessage = WordAbreviations(input[1]);
                         tweet.TwitterID = input[4];
-                        twitterUniqueID.Add(tweet.ID);
-                        twitterMessages.Add(tweet);
+                        data.twitterUniqueID.Add(tweet.ID);
+                         data.twitterMessages.Add(tweet);
                     }
                 }
             }
             updateListView();
-
         }
 
         public string LinkCheck(string val)
         {
             string regex = @"((http|www|https|ftp):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?";
-
             MatchCollection replaced = System.Text.RegularExpressions.Regex.Matches(val, regex);
             foreach (var item in replaced)
             {
-                quarantinedList.Add(item.ToString());
+                data.quarantinedList.Add(item.ToString());
                 val = System.Text.RegularExpressions.Regex.Replace(val, regex, "<URL Quarantined>");
             }
             return val;
@@ -151,7 +154,6 @@ namespace ELM__AM
             {
                 input = streamReader.ReadLine().Split(',');
                 var identifier = input[0];
-
                 if (message.ToLower().Contains(identifier.ToLower()))
                 {
                     var position = message.IndexOf(identifier);
@@ -171,32 +173,30 @@ namespace ELM__AM
         {
             var number = 1;
             var newUnique = type + String.Format("{0:D9}", number);
-
             if (type == "S")
             {
-                while (smsUniqueID.Contains(newUnique))
+                while (data.smsUniqueID.Contains(newUnique))
                 {
                     newUnique = type + String.Format("{0:D9}", number++);
                 }
-                smsUniqueID.Add(newUnique);
+                data.smsUniqueID.Add(newUnique);
             }
             else if(type == "T")
             {
-                while (twitterUniqueID.Contains(newUnique))
+                while (data.twitterUniqueID.Contains(newUnique))
                 {
                     newUnique = type + String.Format("{0:D9}", number++);
                 }
-                twitterUniqueID.Add(newUnique);
+                data.twitterUniqueID.Add(newUnique);
             }
             else
             {
-                while (emailUniqueID.Contains(newUnique))
+                while (data.emailUniqueID.Contains(newUnique))
                 {
                     newUnique = type + String.Format("{0:D9}", number++);
                 }
-                emailUniqueID.Add(newUnique);
-            }
-            
+                data.emailUniqueID.Add(newUnique);
+            }           
             return newUnique;
         }
 
@@ -206,26 +206,28 @@ namespace ELM__AM
             emailMessageList.Items.Clear();
             twitterMessageList.Items.Clear();
 
-            foreach (Sms item in smsMessages)
+            foreach (Sms item in data.smsMessages)
             {
                 var row = new string[] { item.ID, item.PhoneNumber, item.Textmessage };
                 var listItem = new ListViewItem(row);
                 smsMessagesList.Items.Add(listItem);
             }
 
-            foreach (var item in emailMessages)
+            foreach (var item in  data.emailMessages)
             {
                 var row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage };
                 var listItem = new ListViewItem(row);
                 if (item.Subject.Contains("SIR"))
                 {
+                    row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode };
+                    listItem = new ListViewItem(row);
                     listItem.BackColor = Color.Red;
                     listItem.ForeColor = Color.White;
                 }
                 emailMessageList.Items.Add(listItem);
             }
 
-            foreach (var item in twitterMessages)
+            foreach (var item in  data.twitterMessages)
             {
                 var row = new string[] { item.ID, item.TwitterID, item.TwitterMessage };
                 var listItem = new ListViewItem(row);
@@ -244,94 +246,68 @@ namespace ELM__AM
             twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
-        private void ExportJSON_Click(object sender, EventArgs e)
+        private void JSONExportButton_Click(object sender, EventArgs e)
         {
-
-            string apppath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string path = System.IO.Path.Combine(apppath, "ELM JSON EXPORT - " + DateTime.Today.ToString("yyyMMdd") + ".json");
-            List<JObject> allJObjects = new List<JObject>();
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ELM JSON EXPORT - " + DateTime.Today.ToString("yyyMMdd") + ".json");
             using (StreamWriter file = File.CreateText(path))
             {
                 using (JsonTextWriter jw = new JsonTextWriter(file))
                 {
                     jw.WriteStartObject();
-
                     jw.WritePropertyName("All SMS Messages");
                     jw.WriteStartArray();
-                    foreach (var item in smsMessages)
+                    foreach (var item in data.smsMessages)
                     {
                         string json = JsonConvert.SerializeObject(item);
                         jw.WriteValue(json + ",");
                     }
                     jw.WriteEndArray();
-
                     jw.WritePropertyName("All Twitter Messages");
                     jw.WriteStartArray();
-                    foreach (var item in twitterMessages)
+                    foreach (var item in  data.twitterMessages)
                     {
                         string json = JsonConvert.SerializeObject(item);;
                         jw.WriteValue(json + ",");
                     }
                     jw.WriteEndArray();
-
                     jw.WritePropertyName("All Email Messages");
                     jw.WriteStartArray();
-                    foreach (var item in emailMessages)
+                    foreach (var item in  data.emailMessages)
+                    {
+                        string json = JsonConvert.SerializeObject(item); ;
+                        jw.WriteValue(json + ",");
+                    }
+                    jw.WriteEndArray();
+                    jw.WritePropertyName("All Quarantined Links");
+                    jw.WriteStartArray();
+                    foreach (var item in data.quarantinedList)
                     {
                         string json = JsonConvert.SerializeObject(item); ;
                         jw.WriteValue(json + ",");
                     }
                     jw.WriteEndArray();
                     jw.WriteEndObject();
-
                 }
-
             }
         }
 
-        private void NewEntry_Click(object sender, EventArgs e)
+        private void NewEntryButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             EntryForm entry = new EntryForm(this);
             entry.Show();
         }
 
-        private void Quarentine_Click(object sender, EventArgs e)
+        private void QuarentineButton_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             Quarentine quarentine = new Quarentine(this);
             quarentine.Show();
         }
-    }
 
-    public class Sms
-    {
-        public string ID { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Textmessage { get; set; }
-    }
-
-
-    public class Email
-    {
-        public string ID { get; set; }
-        public string EmailAddress { get; set; }
-        public string Subject { get; set; }
-        public string EmailMessage { get; set; }
-        public string BranchCode { get; set; }
-        public string IncidentCode { get; set; }
-    }
-
-    public class Twitter
-    {
-        public string ID { get; set; }
-        public string TwitterID { get; set; }
-        public string TwitterMessage { get; set; }
-    }
-
-    public class SIR
-    {
-        public string BranchCode { get; set; }
-        public string IncidentCode { get; set; }
+        private void Quit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
