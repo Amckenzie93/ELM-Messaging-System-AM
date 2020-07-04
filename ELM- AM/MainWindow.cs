@@ -79,7 +79,7 @@ namespace ELM__AM
                     }
                 }
 
-                foreach (var id in  data.emailMessages)
+                foreach (var id in data.emailMessages)
                 {
                     if (input[0] == id.ID)
                     {
@@ -103,14 +103,14 @@ namespace ELM__AM
                             report.IncidentCode = input[7];
                             email.BranchCode = input[6];
                             email.IncidentCode = input[7];
-                             data.sIRMessages.Add(report);
+                            data.sIRMessages.Add(report);
                         }
 
                         data.emailUniqueID.Add(email.ID);
-                         data.emailMessages.Add(email);
+                        data.emailMessages.Add(email);
                     }
                 }
-                foreach (var id in  data.twitterMessages)
+                foreach (var id in data.twitterMessages)
                 {
                     if (input[0] == id.ID)
                     {
@@ -126,7 +126,8 @@ namespace ELM__AM
                         tweet.TwitterMessage = WordAbreviations(input[1]);
                         tweet.TwitterID = input[4];
                         data.twitterUniqueID.Add(tweet.ID);
-                         data.twitterMessages.Add(tweet);
+                        data.twitterHandleUse.Add(tweet.ID);
+                        data.twitterMessages.Add(tweet);
                     }
                 }
             }
@@ -181,7 +182,7 @@ namespace ELM__AM
                 }
                 data.smsUniqueID.Add(newUnique);
             }
-            else if(type == "T")
+            else if (type == "T")
             {
                 while (data.twitterUniqueID.Contains(newUnique))
                 {
@@ -196,7 +197,7 @@ namespace ELM__AM
                     newUnique = type + String.Format("{0:D9}", number++);
                 }
                 data.emailUniqueID.Add(newUnique);
-            }           
+            }
             return newUnique;
         }
 
@@ -213,7 +214,7 @@ namespace ELM__AM
                 smsMessagesList.Items.Add(listItem);
             }
 
-            foreach (var item in  data.emailMessages)
+            foreach (var item in data.emailMessages)
             {
                 var row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage };
                 var listItem = new ListViewItem(row);
@@ -227,7 +228,7 @@ namespace ELM__AM
                 emailMessageList.Items.Add(listItem);
             }
 
-            foreach (var item in  data.twitterMessages)
+            foreach (var item in data.twitterMessages)
             {
                 var row = new string[] { item.ID, item.TwitterID, item.TwitterMessage };
                 var listItem = new ListViewItem(row);
@@ -264,15 +265,15 @@ namespace ELM__AM
                     jw.WriteEndArray();
                     jw.WritePropertyName("All Twitter Messages");
                     jw.WriteStartArray();
-                    foreach (var item in  data.twitterMessages)
+                    foreach (var item in data.twitterMessages)
                     {
-                        string json = JsonConvert.SerializeObject(item);;
+                        string json = JsonConvert.SerializeObject(item); ;
                         jw.WriteValue(json + ",");
                     }
                     jw.WriteEndArray();
                     jw.WritePropertyName("All Email Messages");
                     jw.WriteStartArray();
-                    foreach (var item in  data.emailMessages)
+                    foreach (var item in data.emailMessages)
                     {
                         string json = JsonConvert.SerializeObject(item); ;
                         jw.WriteValue(json + ",");

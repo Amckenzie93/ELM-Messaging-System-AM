@@ -51,6 +51,7 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +71,7 @@
             this.textBox1.BackColor = System.Drawing.Color.Gainsboro;
             this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(141, 88);
+            this.textBox1.MaxLength = 14;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(314, 23);
             this.textBox1.TabIndex = 5;
@@ -88,6 +90,7 @@
             this.textBox3.BackColor = System.Drawing.Color.Gainsboro;
             this.textBox3.Enabled = false;
             this.textBox3.Location = new System.Drawing.Point(141, 206);
+            this.textBox3.MaxLength = 20;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(314, 23);
             this.textBox3.TabIndex = 5;
@@ -104,16 +107,16 @@
             this.inputMessageBox.Multiline = true;
             this.inputMessageBox.Name = "inputMessageBox";
             this.inputMessageBox.Size = new System.Drawing.Size(314, 156);
-            this.inputMessageBox.TabIndex = 6;
+            this.inputMessageBox.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(141, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 15);
+            this.label2.Size = new System.Drawing.Size(10, 15);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Phone Number";
+            this.label2.Text = " ";
             // 
             // label3
             // 
@@ -156,6 +159,7 @@
             this.textBox4.BackColor = System.Drawing.Color.Gainsboro;
             this.textBox4.Enabled = false;
             this.textBox4.Location = new System.Drawing.Point(141, 266);
+            this.textBox4.MaxLength = 16;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(314, 23);
             this.textBox4.TabIndex = 5;
@@ -303,9 +307,19 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(141, 69);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(88, 15);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Phone Number";
+            // 
             // EntryForm
             // 
             this.ClientSize = new System.Drawing.Size(470, 682);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox2);
@@ -356,6 +370,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label10;
     }
 }
 

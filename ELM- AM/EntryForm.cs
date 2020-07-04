@@ -38,6 +38,7 @@ namespace ELM__AM
         {
             resetFormFields();
             setFormFields(textBox1);
+            inputMessageBox.MaxLength = 140;
             inputMessageBox.Enabled = true;
             inputMessageBox.BackColor = Color.White;
         }
@@ -45,6 +46,7 @@ namespace ELM__AM
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             resetFormFields();
+            inputMessageBox.MaxLength = 140;
             setFormFields(textBox4);
             setFormFields(inputMessageBox);
         }
@@ -52,6 +54,7 @@ namespace ELM__AM
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             resetFormFields();
+            inputMessageBox.MaxLength = 1028;
             setFormFields(textBox2);
             setFormFields(textBox3);
             setFormFields(inputMessageBox);
@@ -60,6 +63,7 @@ namespace ELM__AM
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
             resetFormFields();
+            inputMessageBox.MaxLength = 1028;
             setFormFields(textBox2);
             setFormFields(textBox3);
             setFormFields(inputMessageBox);
