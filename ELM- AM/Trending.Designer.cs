@@ -51,13 +51,13 @@
             // TwitterCount
             // 
             this.TwitterCount.Name = "TwitterCount";
-            this.TwitterCount.Text = "Count";
+            this.TwitterCount.Text = "Twitter Mentions";
             this.TwitterCount.Width = 150;
             // 
             // TwitterUser
             // 
             this.TwitterUser.Name = "TwitterUser";
-            this.TwitterUser.Text = "Twitter User";
+            this.TwitterUser.Text = "Twitter Handle";
             this.TwitterUser.Width = 150;
             // 
             // label1
