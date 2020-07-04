@@ -109,6 +109,7 @@ namespace ELM__AM
                 item.TwitterID = textBox4.Text;
                 item.TwitterMessage = inputMessageBox.Text;
                 form1.data.twitterMessages.Add(item);
+                form1.data.twitterHandleUse.Add(item.TwitterID);
                 Passback();
             }
             else if (radioButton3.Checked)
@@ -152,5 +153,6 @@ namespace ELM__AM
             this.Hide();
             form1.Show();
         }
+
     }
 }
