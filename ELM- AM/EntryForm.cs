@@ -94,7 +94,7 @@ namespace ELM__AM
                 item.ID = form1.UniqueId("S");
                 item.PhoneNumber = textBox1.Text;
                 item.Textmessage = inputMessageBox.Text;
-                form1.smsMessages.Add(item);
+                form1.data.smsMessages.Add(item);
                 Passback();
 
             }
@@ -104,7 +104,7 @@ namespace ELM__AM
                 item.ID = form1.UniqueId("T");
                 item.TwitterID = textBox4.Text;
                 item.TwitterMessage = inputMessageBox.Text;
-                form1.twitterMessages.Add(item);
+                form1.data.twitterMessages.Add(item);
                 Passback();
             }
             else if (radioButton3.Checked)
@@ -114,7 +114,7 @@ namespace ELM__AM
                 item.Subject = textBox3.Text;
                 item.EmailAddress = textBox2.Text;
                 item.EmailMessage = form1.LinkCheck(inputMessageBox.Text);
-                form1.emailMessages.Add(item);
+                form1.data.emailMessages.Add(item);
                 Passback();
             }
             else if (radioButton4.Checked)
@@ -126,7 +126,7 @@ namespace ELM__AM
                 item.EmailMessage = form1.LinkCheck(inputMessageBox.Text);
                 item.BranchCode = textBox5.Text;
                 item.IncidentCode = comboBox1.SelectedItem.ToString();
-                form1.emailMessages.Add(item);
+                form1.data.emailMessages.Add(item);
                 Passback();
             }
             else

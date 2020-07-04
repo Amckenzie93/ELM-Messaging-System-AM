@@ -19,7 +19,7 @@ namespace ELM__AM
         {
             InitializeComponent();
             this.form1 = form1;
-            foreach (var link in form1.quarantinedList)
+            foreach (var link in form1.data.quarantinedList)
             {
                 listBox1.Items.Add(link);
             }
