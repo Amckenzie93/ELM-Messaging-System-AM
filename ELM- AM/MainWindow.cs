@@ -71,7 +71,7 @@ namespace ELM__AM
                         text.PhoneNumber = input[2];
                         data.smsUniqueID.Add(text.ID);
                         data.smsMessages.Add(text);
-                        updateListView();
+                        UpdateListView();
                         System.Threading.Thread.Sleep(300);
                     }
                 }
@@ -99,11 +99,11 @@ namespace ELM__AM
                             report.IncidentCode = input[7];
                             email.BranchCode = input[6];
                             email.IncidentCode = input[7];
-                            data.sIRMessages.Add(report);
+                            data.sirMessages.Add(report);
                         }
                         data.emailUniqueID.Add(email.ID);
                         data.emailMessages.Add(email);
-                        updateListView();
+                        UpdateListView();
                         System.Threading.Thread.Sleep(300);
                     }
                 }
@@ -125,7 +125,7 @@ namespace ELM__AM
                         data.twitterUniqueID.Add(tweet.ID);
                         data.twitterHandleUse.Add(tweet.TwitterID);
                         data.twitterMessages.Add(tweet);
-                        updateListView();
+                        UpdateListView();
                         System.Threading.Thread.Sleep(300);
                     }
                 }
@@ -200,7 +200,7 @@ namespace ELM__AM
             return newUnique;
         }
 
-        public void updateListView()
+        public void UpdateListView()
         {
             smsMessagesList.Items.Clear();
             emailMessageList.Items.Clear();
@@ -215,7 +215,7 @@ namespace ELM__AM
             {
                 var row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage };
                 var listItem = new ListViewItem(row);
-                if (item.Subject.Contains("SIR"))
+                if (item.Subject.Contains("SIR") || item.IncidentCode != null)
                 {
                     row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode };
                     listItem = new ListViewItem(row);
@@ -230,10 +230,10 @@ namespace ELM__AM
                 var listItem = new ListViewItem(row);
                 twitterMessageList.Items.Add(listItem);
             }
-            autosizeColumns();
+            AutosizeColumns();
         }
 
-        private void autosizeColumns()
+        private void AutosizeColumns()
         {
             smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);

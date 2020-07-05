@@ -72,25 +72,26 @@ namespace ELM__AM
             comboBox1.BackColor = Color.White;
         }
 
-        public void resetFormFields()
+        private void resetFormFields()
         {
             comboBox1.Enabled = false;
             comboBox1.BackColor = Color.Gainsboro;
 
             foreach (var item in textBoxes)
             {
+                item.Text = "";
                 item.Enabled = false;
                 item.BackColor = Color.Gainsboro;
             }
         }
 
-        public void setFormFields(TextBox item)
+        private void setFormFields(TextBox item)
         {
             item.Enabled = true;
             item.BackColor = Color.White;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
             {
@@ -144,11 +145,11 @@ namespace ELM__AM
         public void Passback()
         {
             this.Hide();
-            form1.updateListView();
+            form1.UpdateListView();
             form1.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             form1.Show();

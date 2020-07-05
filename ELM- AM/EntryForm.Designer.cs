@@ -49,8 +49,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.AddButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -287,25 +287,25 @@
             this.textBox5.Size = new System.Drawing.Size(171, 23);
             this.textBox5.TabIndex = 0;
             // 
-            // button1
+            // AddButton
             // 
-            this.button1.Location = new System.Drawing.Point(341, 621);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 41);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.AddButton.Location = new System.Drawing.Point(341, 621);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(113, 41);
+            this.AddButton.TabIndex = 10;
+            this.AddButton.Text = "Add";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.Location = new System.Drawing.Point(12, 621);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 41);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cancelButton.Location = new System.Drawing.Point(12, 621);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(107, 41);
+            this.cancelButton.TabIndex = 10;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // label10
             // 
@@ -321,8 +321,8 @@
             this.ClientSize = new System.Drawing.Size(470, 682);
             this.ControlBox = false;
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.AddButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox4);
@@ -370,8 +370,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label label10;
     }
 }
