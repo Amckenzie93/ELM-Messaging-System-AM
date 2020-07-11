@@ -140,7 +140,7 @@
             // 
             this.BranchCode.Name = "BranchCode";
             this.BranchCode.Text = "Branch Code";
-            this.BranchCode.Width = 100;
+            this.BranchCode.Width = 90;
             // 
             // IncidentCode
             // 
@@ -170,7 +170,7 @@
             // TwitterHandle
             // 
             this.TwitterHandle.Name = "TwitterHandle";
-            this.TwitterHandle.Text = "Email Sender";
+            this.TwitterHandle.Text = "Twitter Handle";
             this.TwitterHandle.Width = 150;
             // 
             // TwitterMessage
@@ -228,7 +228,7 @@
             // 
             // JSONExportButton
             // 
-            this.JSONExportButton.Location = new System.Drawing.Point(567, 95);
+            this.JSONExportButton.Location = new System.Drawing.Point(718, 95);
             this.JSONExportButton.Name = "JSONExportButton";
             this.JSONExportButton.Size = new System.Drawing.Size(150, 49);
             this.JSONExportButton.TabIndex = 10;
@@ -248,7 +248,7 @@
             // 
             // TrendingListButton
             // 
-            this.TrendingListButton.Location = new System.Drawing.Point(734, 95);
+            this.TrendingListButton.Location = new System.Drawing.Point(566, 95);
             this.TrendingListButton.Name = "TrendingListButton";
             this.TrendingListButton.Size = new System.Drawing.Size(134, 49);
             this.TrendingListButton.TabIndex = 12;

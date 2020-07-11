@@ -72,7 +72,7 @@ namespace ELM__AM
                         data.smsUniqueID.Add(text.ID);
                         data.smsMessages.Add(text);
                         UpdateListView();
-                        System.Threading.Thread.Sleep(300);
+                        System.Threading.Thread.Sleep(500);
                     }
                 }
 
@@ -104,7 +104,7 @@ namespace ELM__AM
                         data.emailUniqueID.Add(email.ID);
                         data.emailMessages.Add(email);
                         UpdateListView();
-                        System.Threading.Thread.Sleep(300);
+                        System.Threading.Thread.Sleep(500);
                     }
                 }
                 foreach (var id in data.twitterMessages)
@@ -126,7 +126,7 @@ namespace ELM__AM
                         data.twitterHandleUse.Add(tweet.TwitterID);
                         data.twitterMessages.Add(tweet);
                         UpdateListView();
-                        System.Threading.Thread.Sleep(300);
+                        System.Threading.Thread.Sleep(500);
                     }
                 }
             }
@@ -145,7 +145,7 @@ namespace ELM__AM
             return val;
         }
 
-        private string WordAbreviations(string message)
+        public string WordAbreviations(string message)
         {
             StreamReader streamReader = new StreamReader(abbreviations);
             string[] input = new string[File.ReadAllLines(abbreviations).Length];
