@@ -98,7 +98,7 @@ namespace ELM__AM
                 Sms item = new Sms();
                 item.ID = form1.UniqueId("S");
                 item.PhoneNumber = textBox1.Text;
-                item.Textmessage = inputMessageBox.Text;
+                item.Textmessage = form1.WordAbreviations(inputMessageBox.Text);
                 form1.data.smsMessages.Add(item);
                 Passback();
 
@@ -108,7 +108,7 @@ namespace ELM__AM
                 Twitter item = new Twitter();
                 item.ID = form1.UniqueId("T");
                 item.TwitterID = textBox4.Text;
-                item.TwitterMessage = inputMessageBox.Text;
+                item.TwitterMessage = form1.WordAbreviations(inputMessageBox.Text);
                 form1.data.twitterMessages.Add(item);
                 form1.data.twitterHandleUse.Add(item.TwitterID);
                 Passback();

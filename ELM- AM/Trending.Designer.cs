@@ -90,6 +90,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TrendingListBox);
             this.Name = "Trending";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Trending";
             this.ResumeLayout(false);
             this.PerformLayout();

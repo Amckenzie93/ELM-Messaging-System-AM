@@ -338,6 +338,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EntryForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Entry Form";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
