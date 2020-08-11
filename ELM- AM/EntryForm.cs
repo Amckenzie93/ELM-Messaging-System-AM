@@ -96,7 +96,7 @@ namespace ELM__AM
             if (radioButton1.Checked)
             {
                 Sms item = new Sms();
-                item.ID = form1.UniqueId("S");
+                item.ID = form1.GenUniqueId("S");
                 item.PhoneNumber = textBox1.Text;
                 item.Textmessage = form1.WordAbreviations(inputMessageBox.Text);
                 form1.data.smsMessages.Add(item);
@@ -106,7 +106,7 @@ namespace ELM__AM
             else if (radioButton2.Checked)
             {
                 Twitter item = new Twitter();
-                item.ID = form1.UniqueId("T");
+                item.ID = form1.GenUniqueId("T");
                 item.TwitterID = textBox4.Text;
                 item.TwitterMessage = form1.WordAbreviations(inputMessageBox.Text);
                 form1.data.twitterMessages.Add(item);
@@ -116,7 +116,7 @@ namespace ELM__AM
             else if (radioButton3.Checked)
             {
                 Email item = new Email();
-                item.ID = form1.UniqueId("E");
+                item.ID = form1.GenUniqueId("E");
                 item.Subject = textBox3.Text;
                 item.EmailAddress = textBox2.Text;
                 item.EmailMessage = form1.LinkCheck(inputMessageBox.Text);
@@ -126,7 +126,7 @@ namespace ELM__AM
             else if (radioButton4.Checked)
             {
                 Email item = new Email();
-                item.ID = form1.UniqueId("E");
+                item.ID = form1.GenUniqueId("E");
                 item.Subject = textBox3.Text;
                 item.EmailAddress = textBox2.Text;
                 item.EmailMessage = form1.LinkCheck(inputMessageBox.Text);
@@ -135,9 +135,115 @@ namespace ELM__AM
                 form1.data.emailMessages.Add(item);
                 Passback();
             }
+
+            //This of code is the two field input testing section;
+            else if (MessageHeader.Text.Length > 0 && MessageBody.Text.Length > 0)
+            {
+                if (MessageHeader.Text.Substring(0, 1).ToUpper() == "S" || MessageHeader.Text.Substring(0, 1).ToUpper() == "E" || MessageHeader.Text.Substring(0, 1).ToUpper() == "T")
+                {
+                    if (form1.IsUniqueId(MessageHeader.Text))
+                    {
+                        ElmMessage message = new ElmMessage(MessageHeader.Text, MessageBody.Text);
+                        var body = MessageBody.Text.Split(',');
+
+                        if (message.GetMessageType().ToUpper() == "S")
+                        {
+                            try
+                            {
+                                Sms item = new Sms();
+
+                                item.ID = MessageHeader.Text;
+                                item.PhoneNumber = body[1];
+                                item.Textmessage = form1.WordAbreviations(body[0]);
+                                if (item.Validation())
+                                {
+                                    form1.data.smsMessages.Add(item);
+                                    Passback();
+                                }
+                                else
+                                {
+                                    DisplayError();
+                                }
+                            }
+                            catch
+                            {
+                                DisplayError();
+                            }
+                        }
+
+                        else if (message.GetMessageType().ToUpper() == "E")
+                        {
+                            try
+                            {
+
+
+                                Email item = new Email();
+
+                                item.ID = MessageHeader.Text;
+                                item.Subject = body[0];
+                                item.EmailAddress = body[1];
+                                item.EmailMessage = form1.LinkCheck(body[2]);
+
+                                if (body.Length == 5)
+                                {
+                                    item.BranchCode = body[3];
+                                    item.IncidentCode = body[4];
+                                }
+
+                                if (item.Validation())
+                                {
+                                    form1.data.emailMessages.Add(item);
+                                    Passback();
+                                }
+                                else
+                                {
+                                    DisplayError();
+                                }
+                            }
+                            catch
+                            {
+                                DisplayError();
+                            }
+
+                        }
+                        else if (message.GetMessageType().ToUpper() == "T")
+                        {
+                            try
+                            {
+                                Twitter item = new Twitter();
+                                item.ID = MessageHeader.Text;
+                                item.TwitterID = body[0];
+                                item.TwitterMessage = form1.WordAbreviations(body[1]);
+
+                                if (item.Validation())
+                                {
+                                    form1.data.twitterMessages.Add(item);
+                                    form1.data.twitterHandleUse.Add(item.TwitterID);
+                                }
+                                else
+                                {
+                                    DisplayError();
+                                }
+                            }
+                            catch
+                            {
+                                DisplayError();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        BasicError.Text = "This ID is already in use.";
+                    }
+                }
+                else
+                {
+                    BasicError.Text = "Please enter a unique Header (starting with one of the following : S E T ).";
+                }
+            }
             else
             {
-                // nothing :( 
+                DisplayError();
             }
 
         }
@@ -155,5 +261,14 @@ namespace ELM__AM
             form1.Show();
         }
 
+        private void EntryForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayError()
+        {
+            BasicError.Text = "Please check all details correctly.";
+        }
     }
 }

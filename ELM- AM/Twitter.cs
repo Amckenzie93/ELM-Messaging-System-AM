@@ -16,6 +16,15 @@ namespace ELM__AM
 
         }
 
+        public bool Validation()
+        {
+            if (TwitterID.Length > 0 && TwitterMessage.Length > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 
 

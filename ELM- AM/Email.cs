@@ -18,6 +18,18 @@ namespace ELM__AM
 
         }
 
+        public bool Validation()
+        {
+            if (EmailAddress.Length > 0
+                && Subject.Length > 0
+                && EmailMessage.Length > 0
+                && EmailMessage.Length <= 1024)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 
     public class SIR

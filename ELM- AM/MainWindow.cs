@@ -25,7 +25,6 @@ namespace ELM__AM
     {
         public DataCollection data = new DataCollection();
 
-        string abbreviations = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "textwords.csv");
         string inputFile = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "input.csv");
         string outputPath = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
@@ -147,8 +146,8 @@ namespace ELM__AM
 
         public string WordAbreviations(string message)
         {
-            StreamReader streamReader = new StreamReader(abbreviations);
-            string[] input = new string[File.ReadAllLines(abbreviations).Length];
+            StreamReader streamReader = new StreamReader("textwords.csv");
+            string[] input = new string[File.ReadAllLines("textwords.csv").Length];
             input = streamReader.ReadLine().Split(',');
             while (!streamReader.EndOfStream)
             {
@@ -168,8 +167,38 @@ namespace ELM__AM
             streamReader.Close();
             return message;
         }
+    
+        
+        public bool IsUniqueId(string id)
+        {
+            foreach(var item in data.smsUniqueID)
+            {
+                if(item == id)
+                {
+                    return false;
+                }
+            }
 
-        public string UniqueId(string type)
+            foreach (var item in data.emailUniqueID)
+            {
+                if (item == id)
+                {
+                    return false;
+                }
+            }
+
+            foreach (var item in data.twitterUniqueID)
+            {
+                if (item == id)
+                {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        public string GenUniqueId(string type)
         {
             var number = 1;
             var newUnique = type + String.Format("{0:D9}", number);
