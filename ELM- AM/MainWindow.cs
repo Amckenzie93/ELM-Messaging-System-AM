@@ -93,12 +93,11 @@ namespace ELM__AM
                         email.Subject = input[5];
                         if (email.Subject.Contains("SIR"))
                         {
-                            SIR report = new SIR();
-                            report.BranchCode = input[6];
-                            report.IncidentCode = input[7];
+
                             email.BranchCode = input[6];
                             email.IncidentCode = input[7];
-                            data.sirMessages.Add(report);
+                            email.BranchCode = input[6];
+                            email.IncidentCode = input[7];
                         }
                         data.emailUniqueID.Add(email.ID);
                         data.emailMessages.Add(email);
@@ -184,28 +183,36 @@ namespace ELM__AM
         
         public bool IsUniqueId(string id)
         {
-            foreach(var item in data.smsUniqueID)
+            var idNumbers = id.Substring(1, 9);
+            if (ElmUtilities.IsNumber(idNumbers))
             {
-                if(item == id)
+                foreach (var item in data.smsUniqueID)
                 {
-                    return false;
+                    if (item == id)
+                    {
+                        return false;
+                    }
+                }
+
+                foreach (var item in data.emailUniqueID)
+                {
+                    if (item == id)
+                    {
+                        return false;
+                    }
+                }
+
+                foreach (var item in data.twitterUniqueID)
+                {
+                    if (item == id)
+                    {
+                        return false;
+                    }
                 }
             }
-
-            foreach (var item in data.emailUniqueID)
+            else
             {
-                if (item == id)
-                {
-                    return false;
-                }
-            }
-
-            foreach (var item in data.twitterUniqueID)
-            {
-                if (item == id)
-                {
-                    return false;
-                }
+                return false;
             }
             
             return true;
@@ -290,42 +297,50 @@ namespace ELM__AM
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ELM JSON EXPORT - " + DateTime.Today.ToString("yyyMMdd") + ".json");
             using (StreamWriter file = File.CreateText(path))
             {
-                using (JsonTextWriter jw = new JsonTextWriter(file))
+                try
                 {
-                    jw.WriteStartObject();
-                    jw.WritePropertyName("All SMS Messages");
-                    jw.WriteStartArray();
-                    foreach (var item in data.smsMessages)
+                    using (JsonTextWriter jw = new JsonTextWriter(file))
                     {
-                        string json = JsonConvert.SerializeObject(item);
-                        jw.WriteValue(json + ",");
+                        jw.WriteStartObject();
+                        jw.WritePropertyName("All SMS Messages");
+                        jw.WriteStartArray();
+                        foreach (var item in data.smsMessages)
+                        {
+                            string json = JsonConvert.SerializeObject(item);
+                            jw.WriteValue(json + ",");
+                        }
+                        jw.WriteEndArray();
+                        jw.WritePropertyName("All Twitter Messages");
+                        jw.WriteStartArray();
+                        foreach (var item in data.twitterMessages)
+                        {
+                            string json = JsonConvert.SerializeObject(item); ;
+                            jw.WriteValue(json + ",");
+                        }
+                        jw.WriteEndArray();
+                        jw.WritePropertyName("All Email Messages");
+                        jw.WriteStartArray();
+                        foreach (var item in data.emailMessages)
+                        {
+                            string json = JsonConvert.SerializeObject(item); ;
+                            jw.WriteValue(json + ",");
+                        }
+                        jw.WriteEndArray();
+                        jw.WritePropertyName("All Quarantined Links");
+                        jw.WriteStartArray();
+                        foreach (var item in data.quarantinedList)
+                        {
+                            string json = JsonConvert.SerializeObject(item); ;
+                            jw.WriteValue(json + ",");
+                        }
+                        jw.WriteEndArray();
+                        jw.WriteEndObject();
                     }
-                    jw.WriteEndArray();
-                    jw.WritePropertyName("All Twitter Messages");
-                    jw.WriteStartArray();
-                    foreach (var item in data.twitterMessages)
-                    {
-                        string json = JsonConvert.SerializeObject(item); ;
-                        jw.WriteValue(json + ",");
-                    }
-                    jw.WriteEndArray();
-                    jw.WritePropertyName("All Email Messages");
-                    jw.WriteStartArray();
-                    foreach (var item in data.emailMessages)
-                    {
-                        string json = JsonConvert.SerializeObject(item); ;
-                        jw.WriteValue(json + ",");
-                    }
-                    jw.WriteEndArray();
-                    jw.WritePropertyName("All Quarantined Links");
-                    jw.WriteStartArray();
-                    foreach (var item in data.quarantinedList)
-                    {
-                        string json = JsonConvert.SerializeObject(item); ;
-                        jw.WriteValue(json + ",");
-                    }
-                    jw.WriteEndArray();
-                    jw.WriteEndObject();
+                    MessageBox.Show("Your JSON file has been exported to your Desktop.", "Json Export Successful");
+                }
+                catch
+                {
+                    MessageBox.Show("The export has failed, please check your data or contact the system administrator.", "Json Export Failed");
                 }
             }
         }
@@ -351,11 +366,11 @@ namespace ELM__AM
             trendinigForm.Show();
         }
 
-        private void MentionsListBtn_Click(object sender, EventArgs e)
+        private void MentionsButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Trending trendinigForm = new Trending(this);
-            trendinigForm.Show();
+            Mentions mentionsForm = new Mentions(this);
+            mentionsForm.Show();
         }
     }
 }

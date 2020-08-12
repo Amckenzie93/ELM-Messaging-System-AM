@@ -265,6 +265,7 @@
             this.MentionsButton.TabIndex = 13;
             this.MentionsButton.Text = "Mentions List";
             this.MentionsButton.UseVisualStyleBackColor = true;
+            this.MentionsButton.Click += new System.EventHandler(this.MentionsButton_Click);
             // 
             // MainWindow
             // 

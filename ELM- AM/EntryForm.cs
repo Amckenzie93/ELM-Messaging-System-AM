@@ -108,7 +108,7 @@ namespace ELM__AM
                 Twitter item = new Twitter();
                 item.ID = form1.GenUniqueId("T");
                 item.TwitterID = textBox4.Text;
-                item.TwitterMessage = form1.WordAbreviations(inputMessageBox.Text);
+                item.TwitterMessage = form1.GetHashTags(form1.WordAbreviations(inputMessageBox.Text));
                 form1.data.twitterMessages.Add(item);
                 form1.data.twitterHandleUse.Add(item.TwitterID);
                 Passback();
@@ -234,12 +234,12 @@ namespace ELM__AM
                     }
                     else
                     {
-                        BasicError.Text = "This ID is already in use.";
+                        BasicError.Text = "Please check your message Header ID.";
                     }
                 }
                 else
                 {
-                    BasicError.Text = "Please enter a unique Header (starting with one of the following : S E T ).";
+                    BasicError.Text = "Please enter a unique Header ID (starting with one of the following : S E T ).";
                 }
             }
             else
@@ -260,11 +260,6 @@ namespace ELM__AM
         {
             this.Hide();
             form1.Show();
-        }
-
-        private void EntryForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void DisplayError()

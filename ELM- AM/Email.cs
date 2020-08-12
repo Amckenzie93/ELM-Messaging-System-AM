@@ -23,25 +23,16 @@ namespace ELM__AM
             if (EmailAddress.Length > 0
                 && Subject.Length > 0
                 && EmailMessage.Length > 0
-                && EmailMessage.Length <= 1024)
-            {
+                && EmailMessage.Length <= 1024) { 
+                if (BranchCode.Length > 0
+                    && IncidentCode.Length > 0)
+                {
+                    return true;
+                }
                 return true;
             }
             return false;
         }
-
     }
-
-    public class SIR
-    {
-        public string BranchCode { get; set; }
-        public string IncidentCode { get; set; }
-
-        public SIR()
-        {
-
-        }
-    }
-
 
 }
