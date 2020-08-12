@@ -119,7 +119,7 @@ namespace ELM__AM
                     {
                         Twitter tweet = new Twitter();
                         tweet.ID = input[0];
-                        tweet.TwitterMessage = WordAbreviations(input[1]);
+                        tweet.TwitterMessage = GetHashTags(WordAbreviations(input[1]));
                         tweet.TwitterID = input[4];
                         data.twitterUniqueID.Add(tweet.ID);
                         data.twitterHandleUse.Add(tweet.TwitterID);
@@ -135,12 +135,25 @@ namespace ELM__AM
         public string LinkCheck(string val)
         {
             string regex = @"((http|www|https|ftp):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?";
-            MatchCollection replaced = System.Text.RegularExpressions.Regex.Matches(val, regex);
+            MatchCollection replaced = Regex.Matches(val, regex);
             foreach (var item in replaced)
             {
                 data.quarantinedList.Add(item.ToString());
-                val = System.Text.RegularExpressions.Regex.Replace(val, regex, "<URL Quarantined>");
+                val = Regex.Replace(val, regex, "<URL Quarantined>");
             }
+            return val;
+        }
+
+        public string GetHashTags(string val)
+        {
+
+            string regex = @"(#+[a-zA-Z0-9(_)]{1,})";
+            MatchCollection matched = Regex.Matches(val, regex);
+            foreach (var item in matched)
+            {
+                data.twitterTrending.Add(item.ToString());
+            }
+            
             return val;
         }
 
@@ -332,6 +345,13 @@ namespace ELM__AM
         }
 
         private void TrendingListButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Trending trendinigForm = new Trending(this);
+            trendinigForm.Show();
+        }
+
+        private void MentionsListBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
             Trending trendinigForm = new Trending(this);

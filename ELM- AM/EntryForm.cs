@@ -213,12 +213,13 @@ namespace ELM__AM
                                 Twitter item = new Twitter();
                                 item.ID = MessageHeader.Text;
                                 item.TwitterID = body[0];
-                                item.TwitterMessage = form1.WordAbreviations(body[1]);
+                                item.TwitterMessage = form1.GetHashTags(form1.WordAbreviations(body[1]));
 
                                 if (item.Validation())
                                 {
                                     form1.data.twitterMessages.Add(item);
                                     form1.data.twitterHandleUse.Add(item.TwitterID);
+                                    Passback();
                                 }
                                 else
                                 {

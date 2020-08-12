@@ -17,7 +17,7 @@ namespace ELM__AM
 
         public bool Validation()
         {
-            if(Textmessage.Length > 0 && PhoneNumber.Length == 11)
+            if(Textmessage.Length > 0 && PhoneNumber.Length >= 7 && PhoneNumber.Length <= 15)
             {
                 return true;
             }

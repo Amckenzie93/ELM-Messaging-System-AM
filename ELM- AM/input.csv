@@ -2,7 +2,7 @@ MessageID,MessageBody,Phone number,Email Address,Twitter Handle,Email Subject,Sp
 S000000001,This is my text AFK message bla bla bla,7956654432,,,,,
 S000000002,Lol this is my second text message LOL bla bla bla,7954443345,,,,,
 T000000001,This is my twitter post bla bla bla,,,@FirstHandleTest,,,
-T000000002,This is my second twitter post bla bla bla,,,@SecondHandleTest,,,
+T000000002,This is my second twitter post by #aHashTag bla bla bla,,,@SecondHandleTest,,,
 T000000003,This is my third twitter post bla bla bla,,,@SecondHandleTest,,,
 T000000004,This is my new secret twitter post bla bla bla,,,@aNewPerson,,,
 T000000005,This is my second new secret twitter post bla bla bla,,,@aNewPerson,,,

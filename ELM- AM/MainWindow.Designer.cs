@@ -52,6 +52,7 @@
             this.JSONExportButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.TrendingListButton = new System.Windows.Forms.Button();
+            this.MentionsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ImportAllButton
@@ -228,7 +229,7 @@
             // 
             // JSONExportButton
             // 
-            this.JSONExportButton.Location = new System.Drawing.Point(718, 95);
+            this.JSONExportButton.Location = new System.Drawing.Point(866, 95);
             this.JSONExportButton.Name = "JSONExportButton";
             this.JSONExportButton.Size = new System.Drawing.Size(150, 49);
             this.JSONExportButton.TabIndex = 10;
@@ -256,9 +257,19 @@
             this.TrendingListButton.UseVisualStyleBackColor = true;
             this.TrendingListButton.Click += new System.EventHandler(this.TrendingListButton_Click);
             // 
+            // MentionsButton
+            // 
+            this.MentionsButton.Location = new System.Drawing.Point(716, 95);
+            this.MentionsButton.Name = "MentionsButton";
+            this.MentionsButton.Size = new System.Drawing.Size(135, 49);
+            this.MentionsButton.TabIndex = 13;
+            this.MentionsButton.Text = "Mentions List";
+            this.MentionsButton.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.ClientSize = new System.Drawing.Size(1156, 718);
+            this.Controls.Add(this.MentionsButton);
             this.Controls.Add(this.TrendingListButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.JSONExportButton);
@@ -308,6 +319,7 @@
         private System.Windows.Forms.Button JSONExportButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button TrendingListButton;
+        private System.Windows.Forms.Button MentionsButton;
     }
 }
 

@@ -26,7 +26,7 @@ namespace ELM__AM
         private void OnLoadUpdate()
         {
             var result = new Dictionary<string, int>();
-            foreach (string value in form1.data.twitterHandleUse)
+            foreach (string value in form1.data.twitterTrending)
             {
                 if (result.TryGetValue(value, out int count))
                 {
@@ -47,11 +47,6 @@ namespace ELM__AM
             TrendingListBox.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             TrendingListBox.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
-
-
-
-
-
 
 
         private void BackButton_Click(object sender, EventArgs e)

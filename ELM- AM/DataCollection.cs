@@ -14,6 +14,7 @@ namespace ELM__AM
         public HashSet<string> smsUniqueID = new HashSet<string>();
         public HashSet<string> twitterUniqueID = new HashSet<string>();
         public List<string> twitterHandleUse = new List<string>();
+        public List<string> twitterTrending = new List<string>();
         public HashSet<string> emailUniqueID = new HashSet<string>();
 
         public List<string> quarantinedList = new List<string>();

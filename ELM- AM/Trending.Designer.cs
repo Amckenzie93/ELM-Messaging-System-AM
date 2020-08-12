@@ -51,13 +51,13 @@
             // TwitterCount
             // 
             this.TwitterCount.Name = "TwitterCount";
-            this.TwitterCount.Text = "Twitter Mentions";
+            this.TwitterCount.Text = "Count";
             this.TwitterCount.Width = 150;
             // 
             // TwitterUser
             // 
             this.TwitterUser.Name = "TwitterUser";
-            this.TwitterUser.Text = "Twitter Handle";
+            this.TwitterUser.Text = "Hashtag";
             this.TwitterUser.Width = 150;
             // 
             // label1
@@ -66,9 +66,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 25);
+            this.label1.Size = new System.Drawing.Size(198, 25);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Trendinig List";
+            this.label1.Text = "Trendinig Hashtag List";
             // 
             // BackButton
             // 
