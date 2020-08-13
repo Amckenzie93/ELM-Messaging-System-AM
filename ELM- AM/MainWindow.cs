@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics.PerformanceData;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 
 namespace ELM__AM
@@ -23,8 +11,8 @@ namespace ELM__AM
 
     public partial class MainWindow : Form
     {
+        //hoisted collection of data classes and paths to files for use in program
         public DataCollection data = new DataCollection();
-
         string inputFile = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "input.csv");
         string outputPath = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
@@ -43,6 +31,86 @@ namespace ELM__AM
         }
 
 
+
+
+        public void UpdateListView()
+        {
+            smsMessagesList.Items.Clear();
+            emailMessageList.Items.Clear();
+            twitterMessageList.Items.Clear();
+            foreach (Sms item in data.smsMessages)
+            {
+                var row = new string[] { item.ID, item.PhoneNumber, item.Textmessage };
+                var listItem = new ListViewItem(row);
+                smsMessagesList.Items.Add(listItem);
+            }
+            foreach (var item in data.emailMessages)
+            {
+                var row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage };
+                var listItem = new ListViewItem(row);
+                if (item.Subject.Contains("SIR") || item.IncidentCode != null)
+                {
+                    row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode };
+                    listItem = new ListViewItem(row);
+                    listItem.BackColor = Color.Red;
+                    listItem.ForeColor = Color.White;
+                }
+                emailMessageList.Items.Add(listItem);
+            }
+            foreach (var item in data.twitterMessages)
+            {
+                var row = new string[] { item.ID, item.TwitterID, item.TwitterMessage };
+                var listItem = new ListViewItem(row);
+                twitterMessageList.Items.Add(listItem);
+            }
+            AutosizeColumns();
+        }
+
+
+
+
+        private void AutosizeColumns()
+        {
+            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+
+
+
+        public string WordAbreviations(string message)
+        {
+            StreamReader streamReader = new StreamReader("textwords.csv");
+            string[] input = new string[File.ReadAllLines("textwords.csv").Length];
+            input = streamReader.ReadLine().Split(',');
+            while (!streamReader.EndOfStream)
+            {
+                input = streamReader.ReadLine().Split(',');
+                var identifier = input[0];
+                if (message.ToLower().Contains(identifier.ToLower()))
+                {
+                    var position = message.IndexOf(identifier);
+                    if (position >= 0)
+                    {
+                        var builder = new StringBuilder(message);
+                        builder.Insert(position + identifier.Length, "<" + input[1] + ">");
+                        message = builder.ToString();
+                    }
+                }
+            }
+            streamReader.Close();
+            return message;
+        }
+
+
+
+
+
+        //import from csv
         private void ImportAllButton_Click(object sender, EventArgs e)
         {
             StreamReader streamReader = new StreamReader(inputFile);
@@ -88,7 +156,7 @@ namespace ELM__AM
                     {
                         Email email = new Email();
                         email.ID = input[0];
-                        email.EmailMessage = LinkCheck(WordAbreviations(input[1]));
+                        email.EmailMessage = ElmUtilities.LinkCheck(WordAbreviations(input[1]), data);
                         email.EmailAddress = input[3];
                         email.Subject = input[5];
                         if (email.Subject.Contains("SIR"))
@@ -118,7 +186,7 @@ namespace ELM__AM
                     {
                         Twitter tweet = new Twitter();
                         tweet.ID = input[0];
-                        tweet.TwitterMessage = GetHashTags(WordAbreviations(input[1]));
+                        tweet.TwitterMessage = ElmUtilities.GetHashTags(WordAbreviations(input[1]), data);
                         tweet.TwitterID = input[4];
                         data.twitterUniqueID.Add(tweet.ID);
                         data.twitterHandleUse.Add(tweet.TwitterID);
@@ -128,221 +196,12 @@ namespace ELM__AM
                     }
                 }
             }
-            
         }
 
-        public string LinkCheck(string val)
-        {
-            string regex = @"((http|www|https|ftp):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?";
-            MatchCollection replaced = Regex.Matches(val, regex);
-            foreach (var item in replaced)
-            {
-                data.quarantinedList.Add(item.ToString());
-                val = Regex.Replace(val, regex, "<URL Quarantined>");
-            }
-            return val;
-        }
-
-        public string GetHashTags(string val)
-        {
-
-            string regex = @"(#+[a-zA-Z0-9(_)]{1,})";
-            MatchCollection matched = Regex.Matches(val, regex);
-            foreach (var item in matched)
-            {
-                data.twitterTrending.Add(item.ToString());
-            }
-            
-            return val;
-        }
-
-        public string WordAbreviations(string message)
-        {
-            StreamReader streamReader = new StreamReader("textwords.csv");
-            string[] input = new string[File.ReadAllLines("textwords.csv").Length];
-            input = streamReader.ReadLine().Split(',');
-            while (!streamReader.EndOfStream)
-            {
-                input = streamReader.ReadLine().Split(',');
-                var identifier = input[0];
-                if (message.ToLower().Contains(identifier.ToLower()))
-                {
-                    var position = message.IndexOf(identifier);
-                    if (position >= 0)
-                    {
-                        var builder = new StringBuilder(message);
-                        builder.Insert(position + identifier.Length, "<" + input[1] + ">");
-                        message = builder.ToString();
-                    }
-                }
-            }
-            streamReader.Close();
-            return message;
-        }
-    
-        
-        public bool IsUniqueId(string id)
-        {
-            var idNumbers = id.Substring(1, 9);
-            if (ElmUtilities.IsNumber(idNumbers))
-            {
-                foreach (var item in data.smsUniqueID)
-                {
-                    if (item == id)
-                    {
-                        return false;
-                    }
-                }
-
-                foreach (var item in data.emailUniqueID)
-                {
-                    if (item == id)
-                    {
-                        return false;
-                    }
-                }
-
-                foreach (var item in data.twitterUniqueID)
-                {
-                    if (item == id)
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-            
-            return true;
-        }
-
-        public string GenUniqueId(string type)
-        {
-            var number = 1;
-            var newUnique = type + String.Format("{0:D9}", number);
-            if (type == "S")
-            {
-                while (data.smsUniqueID.Contains(newUnique))
-                {
-                    newUnique = type + String.Format("{0:D9}", number++);
-                }
-                data.smsUniqueID.Add(newUnique);
-            }
-            else if (type == "T")
-            {
-                while (data.twitterUniqueID.Contains(newUnique))
-                {
-                    newUnique = type + String.Format("{0:D9}", number++);
-                }
-                data.twitterUniqueID.Add(newUnique);
-            }
-            else
-            {
-                while (data.emailUniqueID.Contains(newUnique))
-                {
-                    newUnique = type + String.Format("{0:D9}", number++);
-                }
-                data.emailUniqueID.Add(newUnique);
-            }
-            return newUnique;
-        }
-
-        public void UpdateListView()
-        {
-            smsMessagesList.Items.Clear();
-            emailMessageList.Items.Clear();
-            twitterMessageList.Items.Clear();
-            foreach (Sms item in data.smsMessages)
-            {
-                var row = new string[] { item.ID, item.PhoneNumber, item.Textmessage };
-                var listItem = new ListViewItem(row);
-                smsMessagesList.Items.Add(listItem);
-            }
-            foreach (var item in data.emailMessages)
-            {
-                var row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage };
-                var listItem = new ListViewItem(row);
-                if (item.Subject.Contains("SIR") || item.IncidentCode != null)
-                {
-                    row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode };
-                    listItem = new ListViewItem(row);
-                    listItem.BackColor = Color.Red;
-                    listItem.ForeColor = Color.White;
-                }
-                emailMessageList.Items.Add(listItem);
-            }
-            foreach (var item in data.twitterMessages)
-            {
-                var row = new string[] { item.ID, item.TwitterID, item.TwitterMessage };
-                var listItem = new ListViewItem(row);
-                twitterMessageList.Items.Add(listItem);
-            }
-            AutosizeColumns();
-        }
-
-        private void AutosizeColumns()
-        {
-            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-        }
 
         private void JSONExportButton_Click(object sender, EventArgs e)
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ELM JSON EXPORT - " + DateTime.Today.ToString("yyyMMdd") + ".json");
-            using (StreamWriter file = File.CreateText(path))
-            {
-                try
-                {
-                    using (JsonTextWriter jw = new JsonTextWriter(file))
-                    {
-                        jw.WriteStartObject();
-                        jw.WritePropertyName("All SMS Messages");
-                        jw.WriteStartArray();
-                        foreach (var item in data.smsMessages)
-                        {
-                            string json = JsonConvert.SerializeObject(item);
-                            jw.WriteValue(json + ",");
-                        }
-                        jw.WriteEndArray();
-                        jw.WritePropertyName("All Twitter Messages");
-                        jw.WriteStartArray();
-                        foreach (var item in data.twitterMessages)
-                        {
-                            string json = JsonConvert.SerializeObject(item); ;
-                            jw.WriteValue(json + ",");
-                        }
-                        jw.WriteEndArray();
-                        jw.WritePropertyName("All Email Messages");
-                        jw.WriteStartArray();
-                        foreach (var item in data.emailMessages)
-                        {
-                            string json = JsonConvert.SerializeObject(item); ;
-                            jw.WriteValue(json + ",");
-                        }
-                        jw.WriteEndArray();
-                        jw.WritePropertyName("All Quarantined Links");
-                        jw.WriteStartArray();
-                        foreach (var item in data.quarantinedList)
-                        {
-                            string json = JsonConvert.SerializeObject(item); ;
-                            jw.WriteValue(json + ",");
-                        }
-                        jw.WriteEndArray();
-                        jw.WriteEndObject();
-                    }
-                    MessageBox.Show("Your JSON file has been exported to your Desktop.", "Json Export Successful");
-                }
-                catch
-                {
-                    MessageBox.Show("The export has failed, please check your data or contact the system administrator.", "Json Export Failed");
-                }
-            }
+            ElmUtilities.exportJSON(data, this);
         }
 
         private void NewEntryButton_Click(object sender, EventArgs e)

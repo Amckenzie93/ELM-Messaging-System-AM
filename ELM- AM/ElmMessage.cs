@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ELM__AM{
+﻿namespace ELM__AM
+{
 
     public class ElmMessage{
 
