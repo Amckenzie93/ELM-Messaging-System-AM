@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -9,18 +10,30 @@ namespace ELM__AM
     class ElmUtilities
     {
 
-        public static string GetHashTags(string val, DataCollection data)
+        public static string WordAbreviations(string message)
         {
-
-            string regex = @"(#+[a-zA-Z0-9(_)]{1,})";
-            MatchCollection matched = Regex.Matches(val, regex);
-            foreach (var item in matched)
+            StreamReader streamReader = new StreamReader("textwords.csv");
+            string[] input = new string[File.ReadAllLines("textwords.csv").Length];
+            input = streamReader.ReadLine().Split(',');
+            while (!streamReader.EndOfStream)
             {
-                data.twitterTrending.Add(item.ToString());
+                input = streamReader.ReadLine().Split(',');
+                var identifier = input[0];
+                if (message.ToLower().Contains(identifier.ToLower()))
+                {
+                    var position = message.IndexOf(identifier);
+                    if (position >= 0)
+                    {
+                        var builder = new StringBuilder(message);
+                        builder.Insert(position + identifier.Length, "<" + input[1] + ">");
+                        message = builder.ToString();
+                    }
+                }
             }
-
-            return val;
+            streamReader.Close();
+            return message;
         }
+
 
 
         public static bool IsNumber(string number)

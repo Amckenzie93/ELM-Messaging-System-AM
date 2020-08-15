@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -81,38 +82,10 @@ namespace ELM__AM
 
 
 
-
-        public string WordAbreviations(string message)
-        {
-            StreamReader streamReader = new StreamReader("textwords.csv");
-            string[] input = new string[File.ReadAllLines("textwords.csv").Length];
-            input = streamReader.ReadLine().Split(',');
-            while (!streamReader.EndOfStream)
-            {
-                input = streamReader.ReadLine().Split(',');
-                var identifier = input[0];
-                if (message.ToLower().Contains(identifier.ToLower()))
-                {
-                    var position = message.IndexOf(identifier);
-                    if (position >= 0)
-                    {
-                        var builder = new StringBuilder(message);
-                        builder.Insert(position + identifier.Length, "<" + input[1] + ">");
-                        message = builder.ToString();
-                    }
-                }
-            }
-            streamReader.Close();
-            return message;
-        }
-
-
-
-
-
         //import from csv
         private void ImportAllButton_Click(object sender, EventArgs e)
         {
+            List<string> importErrors = new List<string>();
             StreamReader streamReader = new StreamReader(inputFile);
             string[] input = new string[File.ReadAllLines(inputFile).Length];
             input = streamReader.ReadLine().Split(',');
@@ -132,17 +105,20 @@ namespace ELM__AM
                 {
                     if (identifier.ToLower() == "s")
                     {
-                        Sms text = new Sms();
-                        text.ID = input[0];
-                        text.Textmessage = WordAbreviations(input[1]);
-                        text.PhoneNumber = input[2];
-                        data.smsUniqueID.Add(text.ID);
-                        data.smsMessages.Add(text);
-                        UpdateListView();
-                        System.Threading.Thread.Sleep(500);
+                        try
+                        {
+                            Sms text = new Sms(input[0], input[2], ElmUtilities.WordAbreviations(input[1]));
+                            data.smsUniqueID.Add(text.ID);
+                            data.smsMessages.Add(text);
+                            UpdateListView();
+                            System.Threading.Thread.Sleep(500);
+                        }
+                        catch (Exception errorMessage)
+                        {
+                            importErrors.Add(errorMessage.Message);
+                        }
                     }
                 }
-
                 foreach (var id in data.emailMessages)
                 {
                     if (input[0] == id.ID)
@@ -154,23 +130,27 @@ namespace ELM__AM
                 {
                     if (identifier.ToLower() == "e")
                     {
-                        Email email = new Email();
-                        email.ID = input[0];
-                        email.EmailMessage = ElmUtilities.LinkCheck(WordAbreviations(input[1]), data);
-                        email.EmailAddress = input[3];
-                        email.Subject = input[5];
-                        if (email.Subject.Contains("SIR"))
+                        try
                         {
-
-                            email.BranchCode = input[6];
-                            email.IncidentCode = input[7];
-                            email.BranchCode = input[6];
-                            email.IncidentCode = input[7];
+                            if (input[5].Contains("SIR"))
+                            {
+                                Email item = new Email(input[0], input[5], input[3], input[1], input[6], input[7], data);
+                                data.emailMessages.Add(item);
+                                data.emailUniqueID.Add(item.ID);
+                            }
+                            else
+                            {
+                                Email item = new Email(input[0], input[5], input[3],input[1], data);
+                                data.emailMessages.Add(item);
+                                data.emailUniqueID.Add(item.ID);
+                            }
+                            UpdateListView();
+                            System.Threading.Thread.Sleep(500);
                         }
-                        data.emailUniqueID.Add(email.ID);
-                        data.emailMessages.Add(email);
-                        UpdateListView();
-                        System.Threading.Thread.Sleep(500);
+                        catch (Exception errorMessage)
+                        {
+                            importErrors.Add(errorMessage.Message);
+                        }
                     }
                 }
                 foreach (var id in data.twitterMessages)
@@ -184,18 +164,24 @@ namespace ELM__AM
                 {
                     if (identifier.ToLower() == "t")
                     {
-                        Twitter tweet = new Twitter();
-                        tweet.ID = input[0];
-                        tweet.TwitterMessage = ElmUtilities.GetHashTags(WordAbreviations(input[1]), data);
-                        tweet.TwitterID = input[4];
-                        data.twitterUniqueID.Add(tweet.ID);
-                        data.twitterHandleUse.Add(tweet.TwitterID);
-                        data.twitterMessages.Add(tweet);
-                        UpdateListView();
-                        System.Threading.Thread.Sleep(500);
+                        try
+                        {
+                            Twitter tweet = new Twitter(input[0], input[4], input[1], data);
+                            data.twitterUniqueID.Add(tweet.ID);
+                            data.twitterHandleUse.Add(tweet.TwitterID);
+                            data.twitterMessages.Add(tweet);
+                            UpdateListView();
+                            System.Threading.Thread.Sleep(500);
+                        }
+                        catch(Exception errorMessage)
+                        {
+                            importErrors.Add(errorMessage.Message);
+                        }
                     }
                 }
             }
+
+            //display import errors : importErrors
         }
 
 

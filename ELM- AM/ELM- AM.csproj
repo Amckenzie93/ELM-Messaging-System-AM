@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="EntryForm.cs">
+    <Compile Update="Views\EntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -21,7 +21,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Trending.cs">
+    <Compile Update="Views\Trending.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
