@@ -104,7 +104,6 @@ namespace ELM__AM
             {
                 data.twitterTrending.Add(item.ToString());
             }
-
             return val;
         }
 

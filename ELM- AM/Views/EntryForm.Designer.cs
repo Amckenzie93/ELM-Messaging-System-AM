@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -44,20 +43,12 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.errorBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(141, 69);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(10, 15);
-            this.label2.TabIndex = 7;
-            this.label2.Text = " ";
             // 
             // AddButton
             // 
-            this.AddButton.Location = new System.Drawing.Point(326, 529);
+            this.AddButton.Location = new System.Drawing.Point(326, 534);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(113, 41);
             this.AddButton.TabIndex = 10;
@@ -67,7 +58,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(204, 529);
+            this.cancelButton.Location = new System.Drawing.Point(204, 534);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(107, 41);
             this.cancelButton.TabIndex = 10;
@@ -139,16 +130,6 @@
             this.MessageHeader.Size = new System.Drawing.Size(417, 23);
             this.MessageHeader.TabIndex = 5;
             // 
-            // BasicError
-            // 
-            this.BasicError.AutoSize = true;
-            this.BasicError.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BasicError.ForeColor = System.Drawing.Color.Red;
-            this.BasicError.Location = new System.Drawing.Point(24, 456);
-            this.BasicError.Name = "BasicError";
-            this.BasicError.Size = new System.Drawing.Size(0, 16);
-            this.BasicError.TabIndex = 13;
-            // 
             // BasicInstructions
             // 
             this.BasicInstructions.AutoSize = true;
@@ -204,10 +185,22 @@
             this.label18.TabIndex = 13;
             this.label18.Text = "Twitter       :  Sender ID, Message";
             // 
+            // errorBox
+            // 
+            this.errorBox.BackColor = System.Drawing.SystemColors.Control;
+            this.errorBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.errorBox.ForeColor = System.Drawing.Color.OrangeRed;
+            this.errorBox.Location = new System.Drawing.Point(22, 444);
+            this.errorBox.Name = "errorBox";
+            this.errorBox.Size = new System.Drawing.Size(417, 75);
+            this.errorBox.TabIndex = 14;
+            this.errorBox.Text = "";
+            // 
             // EntryForm
             // 
             this.ClientSize = new System.Drawing.Size(465, 593);
             this.ControlBox = false;
+            this.Controls.Add(this.errorBox);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
@@ -223,7 +216,6 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EntryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -233,7 +225,6 @@
 
         }
         #endregion
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label label9;
@@ -249,6 +240,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.RichTextBox errorBox;
     }
 }
 

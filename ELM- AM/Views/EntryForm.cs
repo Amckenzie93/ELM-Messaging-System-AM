@@ -77,7 +77,7 @@ namespace ELM__AM
 
         private void DisplayError(string errorMessage)
         {
-            BasicError.Text = errorMessage;
+            errorBox.Text = errorMessage;
         }
 
     }
