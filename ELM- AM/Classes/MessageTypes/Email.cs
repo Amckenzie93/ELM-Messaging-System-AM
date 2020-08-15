@@ -46,7 +46,6 @@ namespace ELM__AM
             EmailMessage = ElmUtilities.LinkCheck(ElmUtilities.WordAbreviations(emailMessage), data);
         }
 
-
         //SIR email constructor for import.
         public Email(string id, string subject, string emailAddress, string emailMessage, string branchCode, string incidentCode, DataCollection data)
         {
@@ -58,9 +57,7 @@ namespace ELM__AM
             IncidentCode = incidentCode;
         }
 
-
-
-
+        //Below are all my Getter and Setters with built in validation and error handling.
         public string ID
         {
             get
@@ -119,7 +116,6 @@ namespace ELM__AM
             }
         }
 
-
         public string EmailMessage
         {
             get
@@ -138,7 +134,6 @@ namespace ELM__AM
                 }
             }
         }
-
 
         public string BranchCode
         {
@@ -159,7 +154,6 @@ namespace ELM__AM
             }
         }
 
-
         public string IncidentCode
         {
             get
@@ -178,7 +172,5 @@ namespace ELM__AM
                 }
             }
         }
-
-
     }
 }

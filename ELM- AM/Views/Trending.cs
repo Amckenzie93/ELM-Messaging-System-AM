@@ -15,10 +15,10 @@ namespace ELM__AM
             TrendingListBox.GridLines = true;
             TrendingListBox.FullRowSelect = true;
             this.form1 = form1;
-
             OnLoadUpdate();
         }
 
+        //Method to update the twitter Trending form view.
         private void OnLoadUpdate()
         {
             var result = new Dictionary<string, int>();

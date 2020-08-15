@@ -10,11 +10,9 @@ namespace ELM__AM
 {
     public partial class Quarentine : Form
     {
-
-
         public MainWindow form1;
 
-
+        //Method displaying a form with all quarentined links - in non prototype this would only be seen by a system adminstrator.
         public Quarentine(MainWindow form1)
         {
             InitializeComponent();

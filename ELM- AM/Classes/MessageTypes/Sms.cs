@@ -8,14 +8,15 @@ namespace ELM__AM
         private string _phoneNumber;
         private string _textmessage;
 
-        public Sms(string id, string messageBody)
+        //Manual SMS input contructor
+        public Sms(string id, string messageBody, DataCollection data)
         {
             ID = id;
             var body = messageBody.Split(',');
             if (body.Length == 2)
             {
                 PhoneNumber = body[1];
-                Textmessage = body[0];
+                Textmessage = ElmUtilities.WordAbreviations(body[0]);
             }
             else
             {
@@ -23,13 +24,16 @@ namespace ELM__AM
             }
         }
 
-        public Sms(string id, string number, string message)
+        //Import SMS input contructor
+        public Sms(string id, string number, string message, DataCollection data)
         {
             ID = id;
             PhoneNumber = number;
-            Textmessage = message;
+            Textmessage = ElmUtilities.WordAbreviations(message);
         }
 
+
+        //Below are all my Getter and Setters with built in validation and error handling.
         public string ID
         {
             get

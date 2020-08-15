@@ -11,7 +11,6 @@ namespace ELM__AM
 {
     public partial class Mentions : Form
     {
-
         public MainWindow form1;
 
         public Mentions(MainWindow form1)
@@ -21,17 +20,15 @@ namespace ELM__AM
             MentionsListBox.GridLines = true;
             MentionsListBox.FullRowSelect = true;
             this.form1 = form1;
-
             OnLoadUpdate();
         }
 
+        //Method to update view with information regarding mentions in view
         private void OnLoadUpdate()
         {
             foreach (Twitter value in form1.data.twitterMessages)
             { 
                 var regex = @"((@+[a-zA-Z0-9(_)]{1,}))";
-
-
                 MatchCollection locatedTwitterMention = Regex.Matches(value.TwitterMessage, regex);
                 foreach (var item in locatedTwitterMention)
                 {
@@ -47,7 +44,6 @@ namespace ELM__AM
             MentionsListBox.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             MentionsListBox.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
-
 
         private void BackButton_Click_1(object sender, EventArgs e)
         {

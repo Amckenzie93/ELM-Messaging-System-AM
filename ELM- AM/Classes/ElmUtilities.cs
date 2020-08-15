@@ -35,7 +35,6 @@ namespace ELM__AM
             return message;
         }
 
-
         // method to check that any number entered as a string is actually a number ranging between 0 and 9.
         public static bool IsNumber(string number)
         {
@@ -46,8 +45,6 @@ namespace ELM__AM
             }
             return true;
         }
-
-
 
         // method that returns true or false depending on the ID of a message trying to be created.
         public static bool IsUniqueId(string id, DataCollection data)
@@ -106,7 +103,6 @@ namespace ELM__AM
             return val;
         }
 
-
         //method to write JSON to file on users desktop, splitting all messages into types as collections in the json file. This has been done using the Newtonsoft library to allow for correct formatting.
         public static void ExportJSON(DataCollection data)
         {
@@ -159,13 +155,9 @@ namespace ELM__AM
             }
         }
 
-
-
-
         //Method i built to generate unique id's thinking that was what we were meant to do at first so i instead decided to build advance functionality
         // to improve useability of the application using different input types, however, I decided to remove it all as the code was lengthly.
         // this is instead left as an example of what could be done beyond this prototype to imrpove the application.
-
         public static string GenUniqueId(string type, DataCollection data)
         {
             var number = 1;
@@ -196,6 +188,5 @@ namespace ELM__AM
             }
             return newUnique;
         }
-
     }
 }

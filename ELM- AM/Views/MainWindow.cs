@@ -5,17 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-
 namespace ELM__AM
 {
-
     public partial class MainWindow : Form
     {
         //variables hoisted for use in program
         public DataCollection data = new DataCollection();
         string inputFile = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "input.csv");
-
-
 
         //Main method call to initiate the main form window - a centralised place for ELM users.
         public MainWindow()
@@ -31,8 +27,6 @@ namespace ELM__AM
             emailMessageList.GridLines = true;
             emailMessageList.FullRowSelect = true;
         }
-
-
 
         //Method to update the UI when new data has been added to the system from ether an entry or import / external.
         public void UpdateListView()
@@ -64,21 +58,6 @@ namespace ELM__AM
             AutosizeColumns();
         }
 
-
-
-        //Method to call whenever the UI updates
-        private void AutosizeColumns()
-        {
-            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-        }
-
-
-
         //import from csv file, checking each ID isnt already in used and logging any failed attempts on the way - for aditional functionality the message is to display on screen one at a time so as they come in one by one they are rendered on screen 0.5s at a time.
         private void ImportAllButton_Click(object sender, EventArgs e)
         {
@@ -88,8 +67,6 @@ namespace ELM__AM
             while (!streamReader.EndOfStream)
             {
                 input = streamReader.ReadLine().Split(',');
-
-                //messages first letter to check which type of message this is.
                 var identifier = input[0].First().ToString();
                 bool proceed = true;
 
@@ -106,10 +83,9 @@ namespace ELM__AM
                     }
                     if (proceed == true)
                     {
-
                         try
                         {
-                            Sms text = new Sms(input[0], input[2], ElmUtilities.WordAbreviations(input[1]));
+                            Sms text = new Sms(input[0], input[2], ElmUtilities.WordAbreviations(input[1]), data);
                             data.smsUniqueID.Add(text.ID);
                             data.smsMessages.Add(text);
                             UpdateListView();
@@ -155,11 +131,11 @@ namespace ELM__AM
                         catch (Exception errorMessage)
                         {
                             //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
+                            // have placed these as a json export to highlight.
                         }
                     }
                 }
-
-                if (identifier.ToLower() == "t")
+                else if (identifier.ToLower() == "t")
                 {
                     foreach (var id in data.twitterMessages)
                     {
@@ -182,18 +158,19 @@ namespace ELM__AM
                         }
                         catch (Exception errorMessage)
                         {
+                            //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
+                            // have placed these as a json export to highlight.
                         }
                     }
                 }
             }
             if (data.importErrors.Count > 0)
             {
-                importErrorsBox.Text = "Not all imported messages could be processed due to incorrect data and/or duplicate entries.";
+                MessageBox.Show("Not all messages could be imported and processed due to ether incorrect data and/ or there being duplicate entries0.");
             }
-
         }
 
-
+        //Method for the view button on click to launch the export call, but only if there's actually data to process. 
         private void JSONExportButton_Click(object sender, EventArgs e)
         {
             if (data.smsMessages.Count > 0 && data.emailMessages.Count > 0 && data.twitterMessages.Count > 0)
@@ -204,9 +181,20 @@ namespace ELM__AM
             {
                 MessageBox.Show("You have no data to export.");
             }
-
         }
 
+        //Method to call whenever the UI updates
+        private void AutosizeColumns()
+        {
+            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        // different methods to control button clicks on the form UI to go to other form views to add new messages or see the twitter trending list etc.
         private void NewEntryButton_Click(object sender, EventArgs e)
         {
             this.Hide();

@@ -9,7 +9,7 @@ namespace ELM__AM
         private string _twitterID;
         private string _twitterMessage;
 
-
+        //Manual input Twitter contructor
         public Twitter(string id, string messageBody, DataCollection data)
         {
             ID = id;
@@ -26,7 +26,7 @@ namespace ELM__AM
             }
         }
 
-
+        //Import twitter constructor.
         public Twitter(string id, string twitterID, string messageBody, DataCollection data)
         {
             ID = id;
@@ -35,7 +35,7 @@ namespace ELM__AM
         }
 
 
-
+        //Below are all my Getter and Setters with built in validation and error handling.
         public string ID
         {
             get

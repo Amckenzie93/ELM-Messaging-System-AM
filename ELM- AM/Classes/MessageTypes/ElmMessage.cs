@@ -8,6 +8,7 @@ namespace ELM__AM
         private string _header { get; set; }
         public string Body { get; set; }
 
+        //Initial Message constructor - to be utilised properly in non prototype with updates to allow for injection and true modularity.
         public ElmMessage(string header, string body)
         {
             _header = header;
@@ -38,8 +39,5 @@ namespace ELM__AM
             var checker = Header.Substring(0, 1);
             return checker;
         }
-
     }
-
-   
 }

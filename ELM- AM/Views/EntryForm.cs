@@ -18,7 +18,6 @@ namespace ELM__AM
             this.form1 = form1;
         }
 
-
         private void AddButton_Click(object sender, EventArgs e)
         {
             try
@@ -31,7 +30,7 @@ namespace ELM__AM
                 }
                 if (message.GetMessageType().ToUpper() == "S")
                 {
-                    Sms item = new Sms(MessageHeader.Text, MessageBody.Text);
+                    Sms item = new Sms(MessageHeader.Text, MessageBody.Text, form1.data);
                     form1.data.smsUniqueID.Add(MessageHeader.Text);
                     form1.data.smsMessages.Add(item);
                     Passback();
