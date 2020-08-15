@@ -108,6 +108,7 @@ namespace ELM__AM
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), DateTime.Today.ToString("yyy-MM-dd") + " - ELM JSON EXPORT" + ".json");
             using (StreamWriter file = File.CreateText(path))
             {
+                JsonSerializer serializer = new JsonSerializer();
                 try
                 {
                     using (JsonTextWriter jw = new JsonTextWriter(file))
@@ -117,32 +118,29 @@ namespace ELM__AM
                         jw.WriteStartArray();
                         foreach (var item in data.smsMessages)
                         {
-                            string json = JsonConvert.SerializeObject(item);
-                            jw.WriteValue(json + ",");
+                            
+                            serializer.Serialize(jw, item);
                         }
                         jw.WriteEndArray();
                         jw.WritePropertyName("All Twitter Messages");
                         jw.WriteStartArray();
                         foreach (var item in data.twitterMessages)
                         {
-                            string json = JsonConvert.SerializeObject(item); ;
-                            jw.WriteValue(json + ",");
+                            serializer.Serialize(jw, item);
                         }
                         jw.WriteEndArray();
                         jw.WritePropertyName("All Email Messages");
                         jw.WriteStartArray();
                         foreach (var item in data.emailMessages)
                         {
-                            string json = JsonConvert.SerializeObject(item); ;
-                            jw.WriteValue(json + ",");
+                            serializer.Serialize(jw, item);
                         }
                         jw.WriteEndArray();
                         jw.WritePropertyName("All Quarantined Links");
                         jw.WriteStartArray();
                         foreach (var item in data.quarantinedList)
                         {
-                            string json = JsonConvert.SerializeObject(item); ;
-                            jw.WriteValue(json + ",");
+                            serializer.Serialize(jw, item);
                         }
                         jw.WriteEndArray();
                         jw.WriteEndObject();
