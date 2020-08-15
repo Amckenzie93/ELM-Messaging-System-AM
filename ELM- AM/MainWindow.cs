@@ -201,7 +201,7 @@ namespace ELM__AM
 
         private void JSONExportButton_Click(object sender, EventArgs e)
         {
-            ElmUtilities.exportJSON(data, this);
+            ElmUtilities.exportJSON(data);
         }
 
         private void NewEntryButton_Click(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ELM__AM
 {
@@ -18,7 +19,10 @@ namespace ELM__AM
 
         public bool Validation()
         {
-            if (TwitterID.Length > 0 && TwitterMessage.Length > 0)
+            if (TwitterID.Length > 0 
+                && TwitterMessage.Length > 0 
+                && TwitterMessage.Length <= 140 
+                && Regex.Matches(TwitterID, "@+[a-zA-Z0-9(_)]{3,15}").Count > 0)
             {
                 return true;
             }

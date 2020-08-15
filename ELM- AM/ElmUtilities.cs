@@ -9,18 +9,6 @@ namespace ELM__AM
     class ElmUtilities
     {
 
-        public static string LinkCheck(string val, DataCollection data)
-        {
-            string regex = @"((http|www|https|ftp):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?";
-            MatchCollection replaced = Regex.Matches(val, regex);
-            foreach (var item in replaced)
-            {
-                data.quarantinedList.Add(item.ToString());
-                val = Regex.Replace(val, regex, "<URL Quarantined>");
-            }
-            return val;
-        }
-
         public static string GetHashTags(string val, DataCollection data)
         {
 
@@ -48,46 +36,63 @@ namespace ELM__AM
 
         public static bool IsUniqueId(string id, DataCollection data)
         {
-            var idNumbers = id.Substring(1, 9);
-            if (ElmUtilities.IsNumber(idNumbers))
-            {
-                foreach (var item in data.smsUniqueID)
-                {
-                    if (item == id)
-                    {
-                        return false;
-                    }
-                }
-
-                foreach (var item in data.emailUniqueID)
-                {
-                    if (item == id)
-                    {
-                        return false;
-                    }
-                }
-
-                foreach (var item in data.twitterUniqueID)
-                {
-                    if (item == id)
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
+            if (id.Length != 10)
             {
                 return false;
             }
+            else{
+                var idNumbers = id.Substring(1, 9);
+                if (ElmUtilities.IsNumber(idNumbers))
+                {
+                    foreach (var item in data.smsUniqueID)
+                    {
+                        if (item == id)
+                        {
+                            return false;
+                        }
+                    }
 
-            return true;
+                    foreach (var item in data.emailUniqueID)
+                    {
+                        if (item == id)
+                        {
+                            return false;
+                        }
+                    }
+
+                    foreach (var item in data.twitterUniqueID)
+                    {
+                        if (item == id)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static string LinkCheck(string val, DataCollection data)
+        {
+            string regex = @"((http|www|https|ftp):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?";
+            MatchCollection replaced = Regex.Matches(val, regex);
+            foreach (var item in replaced)
+            {
+                data.quarantinedList.Add(item.ToString());
+                val = Regex.Replace(val, regex, "<URL Quarantined>");
+            }
+            return val;
         }
 
 
         //method to write JSON to file
-        public static void exportJSON(DataCollection data, Form form)
+        public static void exportJSON(DataCollection data)
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),  DateTime.Today.ToString("yyy-MM-dd") + " - ELM JSON EXPORT" + ".json");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), DateTime.Today.ToString("yyy-MM-dd") + " - ELM JSON EXPORT" + ".json");
             using (StreamWriter file = File.CreateText(path))
             {
                 try

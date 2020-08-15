@@ -20,8 +20,9 @@ namespace ELM__AM
         {
             if (EmailAddress.Length > 0
                 && Subject.Length > 0
+                && Subject.Length <= 20
                 && EmailMessage.Length > 0
-                && EmailMessage.Length <= 1024)
+                && EmailMessage.Length <= 1028)
             {
                 if (Regex.Matches(EmailAddress, "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+.[a-zA-Z0-9_-]+)").Count == 1)
                 {
