@@ -130,6 +130,13 @@
             this.MessageHeader.Size = new System.Drawing.Size(417, 23);
             this.MessageHeader.TabIndex = 5;
             // 
+            // BasicError
+            // 
+            this.BasicError.Location = new System.Drawing.Point(0, 0);
+            this.BasicError.Name = "BasicError";
+            this.BasicError.Size = new System.Drawing.Size(100, 23);
+            this.BasicError.TabIndex = 15;
+            // 
             // BasicInstructions
             // 
             this.BasicInstructions.AutoSize = true;
@@ -189,6 +196,7 @@
             // 
             this.errorBox.BackColor = System.Drawing.SystemColors.Control;
             this.errorBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.errorBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.errorBox.ForeColor = System.Drawing.Color.OrangeRed;
             this.errorBox.Location = new System.Drawing.Point(22, 444);
             this.errorBox.Name = "errorBox";

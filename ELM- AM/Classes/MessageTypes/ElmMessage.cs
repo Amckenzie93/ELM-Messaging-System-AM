@@ -28,7 +28,7 @@ namespace ELM__AM
                 }
                 else
                 {
-                    throw new Exception("Message header ID is incorrect.");
+                    throw new Exception("Your message header is incorrect. Enter one of the fowlloing for the message type (S, E, OR T) followed by 9 numbers (example T123456789)");
                 }
             }
         }

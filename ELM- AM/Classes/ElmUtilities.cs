@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -9,7 +10,7 @@ namespace ELM__AM
 {
     class ElmUtilities
     {
-
+        //method to read all abreviations and compare them to any input messages.
         public static string WordAbreviations(string message)
         {
             StreamReader streamReader = new StreamReader("textwords.csv");
@@ -35,7 +36,7 @@ namespace ELM__AM
         }
 
 
-
+        // method to check that any number entered as a string is actually a number ranging between 0 and 9.
         public static bool IsNumber(string number)
         {
             foreach (char val in number.Replace(" ", ""))
@@ -47,15 +48,18 @@ namespace ELM__AM
         }
 
 
+
+        // method that returns true or false depending on the ID of a message trying to be created.
         public static bool IsUniqueId(string id, DataCollection data)
         {
             if (id.Length != 10)
             {
                 return false;
             }
-            else{
+            else
+            {
                 var idNumbers = id.Substring(1, 9);
-                if (ElmUtilities.IsNumber(idNumbers))
+                if (IsNumber(idNumbers))
                 {
                     foreach (var item in data.smsUniqueID)
                     {
@@ -89,6 +93,7 @@ namespace ELM__AM
             }
         }
 
+        //method using regex to check for any links looking for a range of domain types
         public static string LinkCheck(string val, DataCollection data)
         {
             string regex = @"((http|www|https|ftp):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?";
@@ -102,8 +107,8 @@ namespace ELM__AM
         }
 
 
-        //method to write JSON to file
-        public static void exportJSON(DataCollection data)
+        //method to write JSON to file on users desktop, splitting all messages into types as collections in the json file. This has been done using the Newtonsoft library to allow for correct formatting.
+        public static void ExportJSON(DataCollection data)
         {
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), DateTime.Today.ToString("yyy-MM-dd") + " - ELM JSON EXPORT" + ".json");
             using (StreamWriter file = File.CreateText(path))
@@ -118,7 +123,7 @@ namespace ELM__AM
                         jw.WriteStartArray();
                         foreach (var item in data.smsMessages)
                         {
-                            
+
                             serializer.Serialize(jw, item);
                         }
                         jw.WriteEndArray();
@@ -155,7 +160,12 @@ namespace ELM__AM
         }
 
 
-        //generate unique id - advance functionality improvement for other form fields.
+
+
+        //Method i built to generate unique id's thinking that was what we were meant to do at first so i instead decided to build advance functionality
+        // to improve useability of the application using different input types, however, I decided to remove it all as the code was lengthly.
+        // this is instead left as an example of what could be done beyond this prototype to imrpove the application.
+
         public static string GenUniqueId(string type, DataCollection data)
         {
             var number = 1;

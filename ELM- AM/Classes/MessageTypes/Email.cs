@@ -12,7 +12,7 @@ namespace ELM__AM
         private string _branchCode;
         private string _incidentCode;
 
-
+        //Email constructor for manual input of data into header and body fileds.
         public Email(string id, string messageBody, DataCollection data)
         {
             ID = id;
@@ -21,7 +21,7 @@ namespace ELM__AM
             {
                 Subject = body[0];
                 EmailAddress = body[1];
-                EmailMessage = LinkCheck(ElmUtilities.WordAbreviations(body[2]), data);
+                EmailMessage = ElmUtilities.LinkCheck(ElmUtilities.WordAbreviations(body[2]), data);
             }
             else if (body.Length == 5)
             {
@@ -37,37 +37,28 @@ namespace ELM__AM
             }
         }
 
-
+        //Email constructor for import.
         public Email(string id, string subject, string emailAddress, string emailMessage, DataCollection data)
         {
             ID = id;
             Subject = subject;
             EmailAddress = emailAddress;
-            EmailMessage = LinkCheck(ElmUtilities.WordAbreviations(emailMessage), data);
+            EmailMessage = ElmUtilities.LinkCheck(ElmUtilities.WordAbreviations(emailMessage), data);
         }
 
 
+        //SIR email constructor for import.
         public Email(string id, string subject, string emailAddress, string emailMessage, string branchCode, string incidentCode, DataCollection data)
         {
             ID = id;
             Subject = subject;
             EmailAddress = emailAddress;
-            EmailMessage = LinkCheck(ElmUtilities.WordAbreviations(emailMessage), data);
+            EmailMessage = ElmUtilities.LinkCheck(ElmUtilities.WordAbreviations(emailMessage), data);
             BranchCode = branchCode;
             IncidentCode = incidentCode;
         }
 
-        public string LinkCheck(string val, DataCollection data)
-        {
-            string regex = @"((http|www|https|ftp):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?";
-            MatchCollection replaced = Regex.Matches(val, regex);
-            foreach (var item in replaced)
-            {
-                data.quarantinedList.Add(item.ToString());
-                val = Regex.Replace(val, regex, "<URL Quarantined>");
-            }
-            return val;
-        }
+
 
 
         public string ID

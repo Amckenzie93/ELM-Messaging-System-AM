@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 
@@ -12,11 +11,13 @@ namespace ELM__AM
 
     public partial class MainWindow : Form
     {
-        //hoisted collection of data classes and paths to files for use in program
+        //variables hoisted for use in program
         public DataCollection data = new DataCollection();
         string inputFile = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "input.csv");
-        string outputPath = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
+
+
+        //Main method call to initiate the main form window - a centralised place for ELM users.
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace ELM__AM
 
 
 
-
+        //Method to update the UI when new data has been added to the system from ether an entry or import / external.
         public void UpdateListView()
         {
             smsMessagesList.Items.Clear();
@@ -41,18 +42,15 @@ namespace ELM__AM
             twitterMessageList.Items.Clear();
             foreach (Sms item in data.smsMessages)
             {
-                var row = new string[] { item.ID, item.PhoneNumber, item.Textmessage };
-                var listItem = new ListViewItem(row);
+                var listItem = new ListViewItem(new string[] { item.ID, item.PhoneNumber, item.Textmessage });
                 smsMessagesList.Items.Add(listItem);
             }
             foreach (var item in data.emailMessages)
             {
-                var row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage };
-                var listItem = new ListViewItem(row);
+                var listItem = new ListViewItem(new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage });
                 if (item.Subject.Contains("SIR") || item.IncidentCode != null)
                 {
-                    row = new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode };
-                    listItem = new ListViewItem(row);
+                    listItem = new ListViewItem(new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode });
                     listItem.BackColor = Color.Red;
                     listItem.ForeColor = Color.White;
                 }
@@ -60,8 +58,7 @@ namespace ELM__AM
             }
             foreach (var item in data.twitterMessages)
             {
-                var row = new string[] { item.ID, item.TwitterID, item.TwitterMessage };
-                var listItem = new ListViewItem(row);
+                var listItem = new ListViewItem(new string[] { item.ID, item.TwitterID, item.TwitterMessage });
                 twitterMessageList.Items.Add(listItem);
             }
             AutosizeColumns();
@@ -69,7 +66,7 @@ namespace ELM__AM
 
 
 
-
+        //Method to call whenever the UI updates
         private void AutosizeColumns()
         {
             smsMessagesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -82,29 +79,34 @@ namespace ELM__AM
 
 
 
-        //import from csv
+        //import from csv file, checking each ID isnt already in used and logging any failed attempts on the way - for aditional functionality the message is to display on screen one at a time so as they come in one by one they are rendered on screen 0.5s at a time.
         private void ImportAllButton_Click(object sender, EventArgs e)
         {
-            List<string> importErrors = new List<string>();
             StreamReader streamReader = new StreamReader(inputFile);
             string[] input = new string[File.ReadAllLines(inputFile).Length];
             input = streamReader.ReadLine().Split(',');
             while (!streamReader.EndOfStream)
             {
                 input = streamReader.ReadLine().Split(',');
+
+                //messages first letter to check which type of message this is.
                 var identifier = input[0].First().ToString();
                 bool proceed = true;
-                foreach (var id in data.smsMessages)
+
+                if (identifier.ToLower() == "s")
                 {
-                    if (input[0] == id.ID)
+                    foreach (var id in data.smsMessages)
                     {
-                        proceed = false;
+                        if (input[0] == id.ID)
+                        {
+                            proceed = false;
+
+                            data.importErrors.Add(input[0]);
+                        }
                     }
-                }
-                if (proceed == true)
-                {
-                    if (identifier.ToLower() == "s")
+                    if (proceed == true)
                     {
+
                         try
                         {
                             Sms text = new Sms(input[0], input[2], ElmUtilities.WordAbreviations(input[1]));
@@ -115,21 +117,24 @@ namespace ELM__AM
                         }
                         catch (Exception errorMessage)
                         {
-                            importErrors.Add(errorMessage.Message);
+                            //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
+                            // have placed these as a json export to highlight.
                         }
                     }
                 }
-                foreach (var id in data.emailMessages)
+                if (identifier.ToLower() == "e")
                 {
-                    if (input[0] == id.ID)
+                    foreach (var id in data.emailMessages)
                     {
-                        proceed = false;
+                        if (input[0] == id.ID)
+                        {
+                            proceed = false;
+                            data.importErrors.Add(input[0]);
+                        }
                     }
-                }
-                if (proceed == true)
-                {
-                    if (identifier.ToLower() == "e")
+                    if (proceed == true)
                     {
+
                         try
                         {
                             if (input[5].Contains("SIR"))
@@ -140,7 +145,7 @@ namespace ELM__AM
                             }
                             else
                             {
-                                Email item = new Email(input[0], input[5], input[3],input[1], data);
+                                Email item = new Email(input[0], input[5], input[3], input[1], data);
                                 data.emailMessages.Add(item);
                                 data.emailUniqueID.Add(item.ID);
                             }
@@ -149,20 +154,22 @@ namespace ELM__AM
                         }
                         catch (Exception errorMessage)
                         {
-                            importErrors.Add(errorMessage.Message);
+                            //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
                         }
                     }
                 }
-                foreach (var id in data.twitterMessages)
+
+                if (identifier.ToLower() == "t")
                 {
-                    if (input[0] == id.ID)
+                    foreach (var id in data.twitterMessages)
                     {
-                        proceed = false;
+                        if (input[0] == id.ID)
+                        {
+                            proceed = false;
+                            data.importErrors.Add(input[0]);
+                        }
                     }
-                }
-                if (proceed == true)
-                {
-                    if (identifier.ToLower() == "t")
+                    if (proceed == true)
                     {
                         try
                         {
@@ -173,21 +180,31 @@ namespace ELM__AM
                             UpdateListView();
                             System.Threading.Thread.Sleep(500);
                         }
-                        catch(Exception errorMessage)
+                        catch (Exception errorMessage)
                         {
-                            importErrors.Add(errorMessage.Message);
                         }
                     }
                 }
             }
+            if (data.importErrors.Count > 0)
+            {
+                importErrorsBox.Text = "Not all imported messages could be processed due to incorrect data and/or duplicate entries.";
+            }
 
-            //display import errors : importErrors
         }
 
 
         private void JSONExportButton_Click(object sender, EventArgs e)
         {
-            ElmUtilities.exportJSON(data);
+            if (data.smsMessages.Count > 0 && data.emailMessages.Count > 0 && data.twitterMessages.Count > 0)
+            {
+                ElmUtilities.ExportJSON(data);
+            }
+            else
+            {
+                MessageBox.Show("You have no data to export.");
+            }
+
         }
 
         private void NewEntryButton_Click(object sender, EventArgs e)

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.CodeDom;
-using System.Linq;
-using System.Windows.Markup;
 
 namespace ELM__AM
 {
@@ -10,7 +7,6 @@ namespace ELM__AM
         private string _id;
         private string _phoneNumber;
         private string _textmessage;
-
 
         public Sms(string id, string messageBody)
         {
@@ -61,7 +57,7 @@ namespace ELM__AM
             }
             set
             {
-                if (value.Length >= 7 && value.Length <= 15 && IsNumber(value))
+                if (value.Length >= 7 && value.Length <= 15 && ElmUtilities.IsNumber(value))
                 {
                     _phoneNumber = value;
                 }
@@ -91,16 +87,6 @@ namespace ELM__AM
             }
         }
 
-
-        public bool IsNumber(string number)
-        {
-            foreach (char val in number.Replace(" ", ""))
-            {
-                if (val < '0' || val > '9')
-                    return false;
-            }
-            return true;
-        }
 
     }
 }
