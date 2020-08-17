@@ -22,9 +22,24 @@ namespace ELM__AM
         //error log for imported messages which failed validation.
         public List<string> importErrors = new List<string>();
 
-        public DataCollection()
+
+        private static DataCollection _instance;
+
+        protected DataCollection()
         {
 
         }
+
+        // Method called whenever the data object is requested, if an instance exists only ever return that one instance - Singleton pattern
+        public static DataCollection Instance()
+        {
+            if (_instance == null)
+            {
+                _instance = new DataCollection();
+            }
+
+            return _instance;
+        }
     }
 }
+

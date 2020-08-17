@@ -5,7 +5,7 @@ using System;
 namespace UnitTestProject
 {
     [TestClass]
-    public class SmsUnitTests
+    public class TwitterUnitTests
     {
 
         // Test the import auto creation of a new SMS message with details - should create a sucsessful SMS object.

@@ -9,9 +9,9 @@ namespace ELM__AM
 {
     public partial class MainWindow : Form
     {
-        //variables hoisted for use in program
-        public DataCollection data = new DataCollection();
-        string inputFile = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.FullName, "input.csv");
+        //Singleton database class
+        public DataCollection data = DataCollection.Instance();
+
 
         //Main method call to initiate the main form window - a centralised place for ELM users.
         public MainWindow()
@@ -68,111 +68,88 @@ namespace ELM__AM
         //import from csv file, checking each ID isnt already in used and logging any failed attempts on the way - for aditional functionality the message is to display on screen one at a time so as they come in one by one they are rendered on screen 0.5s at a time.
         private void ImportAllButton_Click(object sender, EventArgs e)
         {
-            StreamReader streamReader = new StreamReader(inputFile);
-            string[] input = new string[File.ReadAllLines(inputFile).Length];
-            input = streamReader.ReadLine().Split(',');
-            while (!streamReader.EndOfStream)
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "CVS files (*.csv*)|*.csv*";
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
+                StreamReader streamReader = new StreamReader(dialog.FileName);
+                string[] input = new string[File.ReadAllLines(dialog.FileName).Length];
                 input = streamReader.ReadLine().Split(',');
-                var identifier = input[0].First().ToString();
-                bool proceed = true;
-
-                //check message ID for type
-                if (identifier.ToLower() == "s")
+                while (!streamReader.EndOfStream)
                 {
-                    foreach (var id in data.smsMessages)
-                    {
-                        if (input[0] == id.ID)
-                        {
-                            proceed = false;
+                    input = streamReader.ReadLine().Split(',');
+                    var identifier = input[0].First().ToString();
+                    bool proceed = true;
 
-                            data.importErrors.Add(input[0]);
-                        }
-                    }
-                    if (proceed == true)
+                    //check message ID for type
+                    if (identifier.ToLower() == "s")
                     {
-                        try
+                        foreach (var id in data.smsMessages)
                         {
-                            Sms text = new Sms(input[0], input[2], ElmUtilities.WordAbreviations(input[1]), data);
-                            data.smsUniqueID.Add(text.ID);
-                            data.smsMessages.Add(text);
-                            UpdateListView();
-                            System.Threading.Thread.Sleep(500);
-                        }
-                        catch (Exception errorMessage)
-                        {
-                            //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
-                            // have placed these as a json export to highlight.
-                        }
-                    }
-                }
-                if (identifier.ToLower() == "e")
-                {
-                    try
-                    {
-                        if (input[5].Contains("SIR"))
-                        {
-                            foreach (var id in data.SIRemailMessages)
+                            if (input[0] == id.ID)
                             {
-                                if (input[0] == id.ID)
-                                {
-                                    proceed = false;
-                                    data.importErrors.Add(input[0]);
-                                }
-                            }
-                            if (proceed == true)
-                            {
-                                Email item = new Email(input[0], input[5], input[3], input[1], input[6], input[7], data);
-                                data.SIRemailMessages.Add(item);
-                                data.emailUniqueID.Add(item.ID);
+                                proceed = false;
+
+                                data.importErrors.Add(input[0]);
                             }
                         }
-                        else
+                        if (proceed == true)
                         {
-                            foreach (var id in data.emailMessages)
+                            try
                             {
-                                if (input[0] == id.ID)
-                                {
-                                    proceed = false;
-                                    data.importErrors.Add(input[0]);
-                                }
-                            }
-                            if (proceed == true)
-                            {
-                                Email item = new Email(input[0], input[5], input[3], input[1], data);
-                                data.emailMessages.Add(item);
-                                data.emailUniqueID.Add(item.ID);
+                                Sms text = new Sms(input[0], input[2], ElmUtilities.WordAbreviations(input[1]), data);
+                                data.smsUniqueID.Add(text.ID);
+                                data.smsMessages.Add(text);
                                 UpdateListView();
                                 System.Threading.Thread.Sleep(500);
                             }
+                            catch (Exception errorMessage)
+                            {
+                                //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
+                                // have placed these as a json export to highlight.
+                            }
                         }
                     }
-                    catch (Exception errorMessage)
-                    {
-                        //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
-                        // have placed these as a json export to highlight.
-                    }
-                }
-                else if (identifier.ToLower() == "t")
-                {
-                    foreach (var id in data.twitterMessages)
-                    {
-                        if (input[0] == id.ID)
-                        {
-                            proceed = false;
-                            data.importErrors.Add(input[0]);
-                        }
-                    }
-                    if (proceed == true)
+                    if (identifier.ToLower() == "e")
                     {
                         try
                         {
-                            Twitter tweet = new Twitter(input[0], input[4], input[1], data);
-                            data.twitterUniqueID.Add(tweet.ID);
-                            data.twitterHandleUse.Add(tweet.TwitterID);
-                            data.twitterMessages.Add(tweet);
-                            UpdateListView();
-                            System.Threading.Thread.Sleep(500);
+                            if (input[5].Contains("SIR"))
+                            {
+                                foreach (var id in data.SIRemailMessages)
+                                {
+                                    if (input[0] == id.ID)
+                                    {
+                                        proceed = false;
+                                        data.importErrors.Add(input[0]);
+                                    }
+                                }
+                                if (proceed == true)
+                                {
+                                    Email item = new Email(input[0], input[5], input[3], input[1], input[6], input[7], data);
+                                    data.SIRemailMessages.Add(item);
+                                    data.emailUniqueID.Add(item.ID);
+                                }
+                            }
+                            else
+                            {
+                                foreach (var id in data.emailMessages)
+                                {
+                                    if (input[0] == id.ID)
+                                    {
+                                        proceed = false;
+                                        data.importErrors.Add(input[0]);
+                                    }
+                                }
+                                if (proceed == true)
+                                {
+                                    Email item = new Email(input[0], input[5], input[3], input[1], data);
+                                    data.emailMessages.Add(item);
+                                    data.emailUniqueID.Add(item.ID);
+                                    UpdateListView();
+                                    System.Threading.Thread.Sleep(500);
+                                }
+                            }
                         }
                         catch (Exception errorMessage)
                         {
@@ -180,11 +157,43 @@ namespace ELM__AM
                             // have placed these as a json export to highlight.
                         }
                     }
+                    else if (identifier.ToLower() == "t")
+                    {
+                        foreach (var id in data.twitterMessages)
+                        {
+                            if (input[0] == id.ID)
+                            {
+                                proceed = false;
+                                data.importErrors.Add(input[0]);
+                            }
+                        }
+                        if (proceed == true)
+                        {
+                            try
+                            {
+                                Twitter tweet = new Twitter(input[0], input[4], input[1], data);
+                                data.twitterUniqueID.Add(tweet.ID);
+                                data.twitterHandleUse.Add(tweet.TwitterID);
+                                data.twitterMessages.Add(tweet);
+                                UpdateListView();
+                                System.Threading.Thread.Sleep(500);
+                            }
+                            catch (Exception errorMessage)
+                            {
+                                //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
+                                // have placed these as a json export to highlight.
+                            }
+                        }
+                    }
+                }
+                if (data.importErrors.Count > 0)
+                {
+                    MessageBox.Show("Not all messages could be imported and processed due to ether incorrect data and/ or there being duplicate entries.", "Failed Import Items");
                 }
             }
-            if (data.importErrors.Count > 0)
+            else
             {
-                MessageBox.Show("Not all messages could be imported and processed due to ether incorrect data and/ or there being duplicate entries.");
+                return;
             }
         }
 
