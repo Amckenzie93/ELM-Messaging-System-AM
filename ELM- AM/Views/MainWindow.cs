@@ -26,6 +26,9 @@ namespace ELM__AM
             emailMessageList.View = View.Details;
             emailMessageList.GridLines = true;
             emailMessageList.FullRowSelect = true;
+            SIRMessageList.View = View.Details;
+            SIRMessageList.GridLines = true;
+            SIRMessageList.FullRowSelect = true;
         }
 
         //Method to update the UI when new data has been added to the system from ether an entry or import / external.
@@ -42,18 +45,22 @@ namespace ELM__AM
             foreach (var item in data.emailMessages)
             {
                 var listItem = new ListViewItem(new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage });
-                if (item.Subject.Contains("SIR") || item.IncidentCode != null)
-                {
-                    listItem = new ListViewItem(new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode });
-                    listItem.BackColor = Color.Red;
-                    listItem.ForeColor = Color.White;
-                }
                 emailMessageList.Items.Add(listItem);
             }
             foreach (var item in data.twitterMessages)
             {
                 var listItem = new ListViewItem(new string[] { item.ID, item.TwitterID, item.TwitterMessage });
                 twitterMessageList.Items.Add(listItem);
+            }
+            foreach (var item in data.SIRemailMessages)
+            {
+                if (item.Subject.Contains("SIR") || item.IncidentCode != null)
+                {
+                    var listItem = new ListViewItem(new string[] { item.ID, item.EmailAddress, item.Subject, item.EmailMessage, item.BranchCode, item.IncidentCode });
+                    listItem.BackColor = Color.Red;
+                    listItem.ForeColor = Color.White;
+                    SIRMessageList.Items.Add(listItem);
+                }
             }
             AutosizeColumns();
         }
@@ -70,6 +77,7 @@ namespace ELM__AM
                 var identifier = input[0].First().ToString();
                 bool proceed = true;
 
+                //check message ID for type
                 if (identifier.ToLower() == "s")
                 {
                     foreach (var id in data.smsMessages)
@@ -100,39 +108,49 @@ namespace ELM__AM
                 }
                 if (identifier.ToLower() == "e")
                 {
-                    foreach (var id in data.emailMessages)
+                    try
                     {
-                        if (input[0] == id.ID)
+                        if (input[5].Contains("SIR"))
                         {
-                            proceed = false;
-                            data.importErrors.Add(input[0]);
-                        }
-                    }
-                    if (proceed == true)
-                    {
-
-                        try
-                        {
-                            if (input[5].Contains("SIR"))
+                            foreach (var id in data.SIRemailMessages)
+                            {
+                                if (input[0] == id.ID)
+                                {
+                                    proceed = false;
+                                    data.importErrors.Add(input[0]);
+                                }
+                            }
+                            if (proceed == true)
                             {
                                 Email item = new Email(input[0], input[5], input[3], input[1], input[6], input[7], data);
-                                data.emailMessages.Add(item);
+                                data.SIRemailMessages.Add(item);
                                 data.emailUniqueID.Add(item.ID);
                             }
-                            else
+                        }
+                        else
+                        {
+                            foreach (var id in data.emailMessages)
+                            {
+                                if (input[0] == id.ID)
+                                {
+                                    proceed = false;
+                                    data.importErrors.Add(input[0]);
+                                }
+                            }
+                            if (proceed == true)
                             {
                                 Email item = new Email(input[0], input[5], input[3], input[1], data);
                                 data.emailMessages.Add(item);
                                 data.emailUniqueID.Add(item.ID);
+                                UpdateListView();
+                                System.Threading.Thread.Sleep(500);
                             }
-                            UpdateListView();
-                            System.Threading.Thread.Sleep(500);
                         }
-                        catch (Exception errorMessage)
-                        {
-                            //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
-                            // have placed these as a json export to highlight.
-                        }
+                    }
+                    catch (Exception errorMessage)
+                    {
+                        //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
+                        // have placed these as a json export to highlight.
                     }
                 }
                 else if (identifier.ToLower() == "t")
@@ -192,6 +210,8 @@ namespace ELM__AM
             emailMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             twitterMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            SIRMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            SIRMessageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         // different methods to control button clicks on the form UI to go to other form views to add new messages or see the twitter trending list etc.

@@ -38,8 +38,6 @@
             this.EmailAddress = new System.Windows.Forms.ColumnHeader();
             this.EmailSubject = new System.Windows.Forms.ColumnHeader();
             this.EmailMessage = new System.Windows.Forms.ColumnHeader();
-            this.BranchCode = new System.Windows.Forms.ColumnHeader();
-            this.IncidentCode = new System.Windows.Forms.ColumnHeader();
             this.twitterMessageList = new System.Windows.Forms.ListView();
             this.TwitterID = new System.Windows.Forms.ColumnHeader();
             this.TwitterHandle = new System.Windows.Forms.ColumnHeader();
@@ -53,6 +51,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.TrendingListButton = new System.Windows.Forms.Button();
             this.MentionsButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
+            this.SIRMessageList = new System.Windows.Forms.ListView();
+            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader11 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // ImportAllButton
@@ -103,9 +115,7 @@
             this.EmailID,
             this.EmailAddress,
             this.EmailSubject,
-            this.EmailMessage,
-            this.BranchCode,
-            this.IncidentCode});
+            this.EmailMessage});
             this.emailMessageList.HideSelection = false;
             this.emailMessageList.Location = new System.Drawing.Point(39, 538);
             this.emailMessageList.Name = "emailMessageList";
@@ -136,18 +146,6 @@
             this.EmailMessage.Name = "EmailMessage";
             this.EmailMessage.Text = "Email Message";
             this.EmailMessage.Width = 450;
-            // 
-            // BranchCode
-            // 
-            this.BranchCode.Name = "BranchCode";
-            this.BranchCode.Text = "Branch Code";
-            this.BranchCode.Width = 90;
-            // 
-            // IncidentCode
-            // 
-            this.IncidentCode.Name = "IncidentCode";
-            this.IncidentCode.Text = "Incident Code";
-            this.IncidentCode.Width = 150;
             // 
             // twitterMessageList
             // 
@@ -267,9 +265,102 @@
             this.MentionsButton.UseVisualStyleBackColor = true;
             this.MentionsButton.Click += new System.EventHandler(this.MentionsButton_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(38, 694);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(109, 15);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "SIR Email Messages";
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Name = "columnHeader1";
+            this.columnHeader1.Text = "Email ID";
+            this.columnHeader1.Width = 150;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Name = "columnHeader2";
+            this.columnHeader2.Text = "Email Address";
+            this.columnHeader2.Width = 150;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Name = "columnHeader3";
+            this.columnHeader3.Text = "Email Subject";
+            this.columnHeader3.Width = 150;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Name = "columnHeader4";
+            this.columnHeader4.Text = "Email Message";
+            this.columnHeader4.Width = 450;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Name = "columnHeader5";
+            this.columnHeader5.Text = "Branch Code";
+            this.columnHeader5.Width = 90;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Name = "columnHeader6";
+            this.columnHeader6.Text = "Incident Code";
+            this.columnHeader6.Width = 150;
+            // 
+            // SIRMessageList
+            // 
+            this.SIRMessageList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12});
+            this.SIRMessageList.HideSelection = false;
+            this.SIRMessageList.Location = new System.Drawing.Point(39, 712);
+            this.SIRMessageList.Name = "SIRMessageList";
+            this.SIRMessageList.Size = new System.Drawing.Size(1081, 139);
+            this.SIRMessageList.TabIndex = 2;
+            this.SIRMessageList.UseCompatibleStateImageBehavior = false;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Email ID";
+            this.columnHeader7.Width = 150;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Email Address";
+            this.columnHeader8.Width = 150;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Email Subject";
+            this.columnHeader9.Width = 150;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Email Message";
+            this.columnHeader10.Width = 450;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Branch Code";
+            this.columnHeader11.Width = 150;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Incident code";
+            this.columnHeader12.Width = 150;
+            // 
             // MainWindow
             // 
-            this.ClientSize = new System.Drawing.Size(1156, 707);
+            this.ClientSize = new System.Drawing.Size(1156, 892);
+            this.Controls.Add(this.SIRMessageList);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.MentionsButton);
             this.Controls.Add(this.TrendingListButton);
             this.Controls.Add(this.label4);
@@ -310,8 +401,6 @@
         private System.Windows.Forms.ColumnHeader EmailID;
         private System.Windows.Forms.ColumnHeader EmailAddress;
         private System.Windows.Forms.ColumnHeader EmailMessage;
-        private System.Windows.Forms.ColumnHeader BranchCode;
-        private System.Windows.Forms.ColumnHeader IncidentCode;
         private System.Windows.Forms.Button NewEntryButton;
         private System.Windows.Forms.Button QuarentineButton;
         private System.Windows.Forms.Label label1;
@@ -321,6 +410,20 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button TrendingListButton;
         private System.Windows.Forms.Button MentionsButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ListView SIRMessageList;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
     }
 }
 

@@ -39,8 +39,15 @@ namespace ELM__AM
                 else if (message.GetMessageType().ToUpper() == "E")
                 {
                     Email item = new Email(MessageHeader.Text, MessageBody.Text, form1.data);
+                    if(item.IncidentCode != null  && item.BranchCode != null && item.Subject.Contains("SIR"))
+                    {
+                        form1.data.SIRemailMessages.Add(item);
+                    }
+                    else
+                    {
+                        form1.data.emailMessages.Add(item);
+                    }
                     form1.data.emailUniqueID.Add(MessageHeader.Text);
-                    form1.data.emailMessages.Add(item);
                     Passback();
                 }
 

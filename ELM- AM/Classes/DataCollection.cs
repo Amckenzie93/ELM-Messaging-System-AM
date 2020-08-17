@@ -7,6 +7,7 @@ namespace ELM__AM
         //all my database layer collections, split into each type for performance to allow better scailing and optimisation.
         public List<Sms> smsMessages = new List<Sms>();
         public List<Email> emailMessages = new List<Email>();
+        public List<Email> SIRemailMessages = new List<Email>();
         public List<Twitter> twitterMessages = new List<Twitter>();
 
         public HashSet<string> smsUniqueID = new HashSet<string>();
