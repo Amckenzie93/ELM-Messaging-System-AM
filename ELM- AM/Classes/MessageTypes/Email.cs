@@ -43,7 +43,7 @@ namespace ELM__AM
             ID = id;
             Subject = subject;
             EmailAddress = emailAddress;
-            EmailMessage = ElmUtilities.LinkCheck(ElmUtilities.WordAbreviations(emailMessage), data);
+            EmailMessage = ElmUtilities.LinkCheck(emailMessage, data);
         }
 
         //SIR email constructor for import.
@@ -52,7 +52,7 @@ namespace ELM__AM
             ID = id;
             Subject = subject;
             EmailAddress = emailAddress;
-            EmailMessage = ElmUtilities.LinkCheck(ElmUtilities.WordAbreviations(emailMessage), data);
+            EmailMessage = ElmUtilities.LinkCheck(emailMessage, data);
             BranchCode = branchCode;
             IncidentCode = incidentCode;
         }

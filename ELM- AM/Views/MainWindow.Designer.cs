@@ -53,7 +53,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.TrendingListButton = new System.Windows.Forms.Button();
             this.MentionsButton = new System.Windows.Forms.Button();
-            this.importErrorsBox = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ImportAllButton
@@ -74,7 +73,7 @@
             this.TextMessage});
             this.smsMessagesList.GridLines = true;
             this.smsMessagesList.HideSelection = false;
-            this.smsMessagesList.Location = new System.Drawing.Point(39, 216);
+            this.smsMessagesList.Location = new System.Drawing.Point(39, 184);
             this.smsMessagesList.Name = "smsMessagesList";
             this.smsMessagesList.Size = new System.Drawing.Size(1081, 138);
             this.smsMessagesList.TabIndex = 1;
@@ -108,7 +107,7 @@
             this.BranchCode,
             this.IncidentCode});
             this.emailMessageList.HideSelection = false;
-            this.emailMessageList.Location = new System.Drawing.Point(39, 570);
+            this.emailMessageList.Location = new System.Drawing.Point(39, 538);
             this.emailMessageList.Name = "emailMessageList";
             this.emailMessageList.Size = new System.Drawing.Size(1081, 139);
             this.emailMessageList.TabIndex = 2;
@@ -157,7 +156,7 @@
             this.TwitterHandle,
             this.TwitterMessage});
             this.twitterMessageList.HideSelection = false;
-            this.twitterMessageList.Location = new System.Drawing.Point(39, 396);
+            this.twitterMessageList.Location = new System.Drawing.Point(39, 364);
             this.twitterMessageList.Name = "twitterMessageList";
             this.twitterMessageList.Size = new System.Drawing.Size(1081, 132);
             this.twitterMessageList.TabIndex = 3;
@@ -204,7 +203,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 198);
+            this.label1.Location = new System.Drawing.Point(38, 166);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 15);
             this.label1.TabIndex = 7;
@@ -213,7 +212,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(39, 378);
+            this.label2.Location = new System.Drawing.Point(39, 346);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 15);
             this.label2.TabIndex = 8;
@@ -222,7 +221,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 552);
+            this.label3.Location = new System.Drawing.Point(38, 520);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 15);
             this.label3.TabIndex = 9;
@@ -268,21 +267,9 @@
             this.MentionsButton.UseVisualStyleBackColor = true;
             this.MentionsButton.Click += new System.EventHandler(this.MentionsButton_Click);
             // 
-            // importErrorsBox
-            // 
-            this.importErrorsBox.AutoSize = true;
-            this.importErrorsBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.importErrorsBox.ForeColor = System.Drawing.Color.OrangeRed;
-            this.importErrorsBox.Location = new System.Drawing.Point(39, 163);
-            this.importErrorsBox.Name = "importErrorsBox";
-            this.importErrorsBox.Size = new System.Drawing.Size(0, 17);
-            this.importErrorsBox.TabIndex = 14;
-            this.importErrorsBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // MainWindow
             // 
-            this.ClientSize = new System.Drawing.Size(1156, 740);
-            this.Controls.Add(this.importErrorsBox);
+            this.ClientSize = new System.Drawing.Size(1156, 707);
             this.Controls.Add(this.MentionsButton);
             this.Controls.Add(this.TrendingListButton);
             this.Controls.Add(this.label4);
@@ -334,7 +321,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button TrendingListButton;
         private System.Windows.Forms.Button MentionsButton;
-        private System.Windows.Forms.Label importErrorsBox;
     }
 }
 

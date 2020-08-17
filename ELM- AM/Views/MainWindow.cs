@@ -166,7 +166,7 @@ namespace ELM__AM
             }
             if (data.importErrors.Count > 0)
             {
-                MessageBox.Show("Not all messages could be imported and processed due to ether incorrect data and/ or there being duplicate entries0.");
+                MessageBox.Show("Not all messages could be imported and processed due to ether incorrect data and/ or there being duplicate entries.");
             }
         }
 
