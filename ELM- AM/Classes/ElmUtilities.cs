@@ -119,7 +119,6 @@ namespace ELM__AM
                         jw.WriteStartArray();
                         foreach (var item in data.smsMessages)
                         {
-
                             serializer.Serialize(jw, item);
                         }
                         jw.WriteEndArray();
@@ -137,9 +136,23 @@ namespace ELM__AM
                             serializer.Serialize(jw, item);
                         }
                         jw.WriteEndArray();
+                        jw.WritePropertyName("All SIR Messages");
+                        jw.WriteStartArray();
+                        foreach (var item in data.SIRemailMessages)
+                        {
+                            serializer.Serialize(jw, item);
+                        }
+                        jw.WriteEndArray();
                         jw.WritePropertyName("All Quarantined Links");
                         jw.WriteStartArray();
                         foreach (var item in data.quarantinedList)
+                        {
+                            serializer.Serialize(jw, item);
+                        }
+                        jw.WriteEndArray();
+                        jw.WritePropertyName("All failed import Messages by Id");
+                        jw.WriteStartArray();
+                        foreach (var item in data.importErrors)
                         {
                             serializer.Serialize(jw, item);
                         }

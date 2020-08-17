@@ -106,7 +106,7 @@ namespace ELM__AM
                             catch (Exception errorMessage)
                             {
                                 //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
-                                // have placed these as a json export to highlight.
+                                //have placed these as a json export to highlight.
                             }
                         }
                     }
@@ -154,7 +154,7 @@ namespace ELM__AM
                         catch (Exception errorMessage)
                         {
                             //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
-                            // have placed these as a json export to highlight.
+                            //have placed these as a json export to highlight.
                         }
                     }
                     else if (identifier.ToLower() == "t")
@@ -181,7 +181,7 @@ namespace ELM__AM
                             catch (Exception errorMessage)
                             {
                                 //silent exception message for the prototype - real application could have a dialog for the failing message to correct the data manually.
-                                // have placed these as a json export to highlight.
+                                //have placed these as a json export to highlight.
                             }
                         }
                     }
