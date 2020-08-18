@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace ELM__AM
 {
@@ -22,6 +23,8 @@ namespace ELM__AM
         //error log for imported messages which failed validation.
         public List<string> importErrors = new List<string>();
 
+        //dat item of all SIR incident codes sotred as a list of strings.
+        public List<string> incidentNature = new List<string>();
 
         private static DataCollection _instance;
 
@@ -36,8 +39,20 @@ namespace ELM__AM
             if (_instance == null)
             {
                 _instance = new DataCollection();
-            }
 
+                //This incident code will be stored in a database ideally - for now it is loaded as part of the data layer instance.
+                _instance.incidentNature.Add("Theft of Properties");
+                _instance.incidentNature.Add("Staff Attack");
+                _instance.incidentNature.Add("Device Damage");
+                _instance.incidentNature.Add("Raid");
+                _instance.incidentNature.Add("Customer Attack");
+                _instance.incidentNature.Add("Staff Abuse");
+                _instance.incidentNature.Add("Bomb Threat");
+                _instance.incidentNature.Add("Terrorism");
+                _instance.incidentNature.Add("Suspicious Incident");
+                _instance.incidentNature.Add("Sport Injury");
+                _instance.incidentNature.Add("personal Info leak");
+            }
             return _instance;
         }
     }

@@ -188,7 +188,7 @@ namespace ELM__AM
                 }
                 if (data.importErrors.Count > 0)
                 {
-                    MessageBox.Show("Not all messages could be imported and processed due to ether incorrect data and/ or there being duplicate entries.", "Failed Import Items");
+                    MessageBox.Show("Not all messages could be imported and processed due to ether incorrect data and/ or there being duplicate entries - please see the json export for all failed message IDs.", "Failed Import Items");
                 }
             }
             else
@@ -200,7 +200,7 @@ namespace ELM__AM
         //Method for the view button on click to launch the export call, but only if there's actually data to process. 
         private void JSONExportButton_Click(object sender, EventArgs e)
         {
-            if (data.smsMessages.Count > 0 && data.emailMessages.Count > 0 && data.twitterMessages.Count > 0)
+            if (data.smsMessages.Count > 0 || data.emailMessages.Count > 0 || data.twitterMessages.Count > 0 || data.importErrors.Count > 0 || data.SIRemailMessages.Count > 0)
             {
                 ElmUtilities.ExportJSON(data);
             }
@@ -208,7 +208,7 @@ namespace ELM__AM
             {
                 MessageBox.Show("You have no data to export.");
             }
-        }
+        } 
 
         //Method to call whenever the UI updates
         private void AutosizeColumns()

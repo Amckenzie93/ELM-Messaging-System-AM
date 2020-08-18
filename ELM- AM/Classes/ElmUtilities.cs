@@ -106,7 +106,7 @@ namespace ELM__AM
         //method to write JSON to file on users desktop, splitting all messages into types as collections in the json file. This has been done using the Newtonsoft library to allow for correct formatting.
         public static void ExportJSON(DataCollection data)
         {
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), DateTime.Today.ToString("yyy-MM-dd") + " - ELM JSON EXPORT" + ".json");
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), DateTime.Today.ToString("yyy-MM-dd") + " - ELM JSON EXPORT" + ".json");
             using (StreamWriter file = File.CreateText(path))
             {
                 JsonSerializer serializer = new JsonSerializer();

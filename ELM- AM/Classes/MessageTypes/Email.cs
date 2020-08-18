@@ -57,6 +57,7 @@ namespace ELM__AM
             IncidentCode = incidentCode;
         }
 
+
         //Below are all my Getter and Setters with built in validation and error handling.
         public string ID
         {
@@ -149,7 +150,7 @@ namespace ELM__AM
                 }
                 else
                 {
-                    throw new Exception("Your branch code is invalid, enter the numerical format e.g. 12-345-67");
+                    throw new Exception("Your branch code is invalid, enter the numerical format e.g. 12-345-67 - please ensure there are no accidental spaces left or right side of the commas.");
                 }
             }
         }
@@ -162,15 +163,31 @@ namespace ELM__AM
             }
             set
             {
-                if (value.Length > 0)
+                if (GetIncidentCode(value))
                 {
                     _incidentCode = value;
                 }
                 else
                 {
-                    throw new Exception("Please enter an incident code.");
+                    throw new Exception("Please enter a valid incident code.");
                 }
             }
+        }
+
+
+        //DB acting as an end point API function here to check the input code against the incident codes List provided in the requirements
+        private bool GetIncidentCode(string val)
+        {
+            DataCollection db = DataCollection.Instance();
+            foreach (var item in db.incidentNature)
+            {
+                //softer comparison added to ensure an easy validation pass due to nature of incident
+                if (val.ToLower().Contains(item.ToLower()))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
