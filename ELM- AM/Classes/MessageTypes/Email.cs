@@ -86,7 +86,19 @@ namespace ELM__AM
             }
             set
             {
-                if (value.Length > 0 && value.Length <= 20)
+                if (IncidentCode != null)
+                {
+                    //Regex to find date format dd/mm/yy as well as SIR
+                    if (Regex.Match(value, @"([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{2}$").Success && value.Contains("SIR"))
+                    {
+                        _subject = value;
+                    }
+                    else
+                    {
+                        throw new Exception("Your subject needs to be between 1 and 20 and contain SIR as well as a date in dd/mm/yy format");
+                    }
+                }
+                else if (value.Length > 0 && value.Length <= 20)
                 {
                     _subject = value;
                 }
