@@ -8,7 +8,6 @@ namespace ELM__AM
 
     public partial class EntryForm : Form
     {
-        public List<TextBoxBase> textBoxes = new List<TextBoxBase> { };
 
         public MainWindow form1;
 

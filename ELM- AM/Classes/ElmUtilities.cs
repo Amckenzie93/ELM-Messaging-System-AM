@@ -167,39 +167,5 @@ namespace ELM__AM
                 }
             }
         }
-
-        //Method i built to generate unique id's thinking that was what we were meant to do at first so i instead decided to build advance functionality
-        // to improve useability of the application using different input types, however, I decided to remove it all as the code was lengthly.
-        // this is instead left as an example of what could be done beyond this prototype to imrpove the application.
-        public static string GenUniqueId(string type, DataCollection data)
-        {
-            var number = 1;
-            var newUnique = type + String.Format("{0:D9}", number);
-            if (type == "S")
-            {
-                while (data.smsUniqueID.Contains(newUnique))
-                {
-                    newUnique = type + String.Format("{0:D9}", number++);
-                }
-                data.smsUniqueID.Add(newUnique);
-            }
-            else if (type == "T")
-            {
-                while (data.twitterUniqueID.Contains(newUnique))
-                {
-                    newUnique = type + String.Format("{0:D9}", number++);
-                }
-                data.twitterUniqueID.Add(newUnique);
-            }
-            else
-            {
-                while (data.emailUniqueID.Contains(newUnique))
-                {
-                    newUnique = type + String.Format("{0:D9}", number++);
-                }
-                data.emailUniqueID.Add(newUnique);
-            }
-            return newUnique;
-        }
     }
 }
