@@ -34,7 +34,6 @@ namespace ELM__AM
             TwitterMessage = GetHashTags(ElmUtilities.WordAbreviations(messageBody), data);
         }
 
-
         //Below are all my Getter and Setters with built in validation and error handling.
         public string ID
         {
@@ -54,7 +53,6 @@ namespace ELM__AM
                 }
             }
         }
-
 
         public string TwitterID
         {
@@ -104,8 +102,5 @@ namespace ELM__AM
             }
             return val;
         }
-
     }
-
-
 }

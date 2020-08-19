@@ -1,13 +1,16 @@
 MessageID,MessageBody,Phone number,Email Address,Twitter Handle,Email Subject,Sport Centre Code,Nature of Incident
-S000000001,This is my text AFK message bla bla bla,7956654432,,,,,
-S000000002,Lol this is my second text message WWJD bla bla bla,7954443345,,,,,
-T000000001,This is my twitter post bla bla bla,,,@FirstHandleTest,,,
-T000000002,This is my second twitter post by #aHashTag bla bla bla,,,@SecondHandleTest,,,
-T000000003,This is my third twitter post LOL WWJD at @ELM bla bla bla,,,@SecondHandleTest,,,
-T000000004,@EustonLeisure This is my new secret twitter post bla bla bla,,,@aNewPerson,,,
-T000000005,This is my second new secret twitter post bla bla bla,,,@aNewPerson,,,
-E000000001,This is another email message https://lol.com bla bla www.jokes.com bla,,Adam@blogs.co.uk,,Second Test Subject,,
-E000000002,This is an email message LOL bla bla bla,,joe@blogs.com,,First Test Subject,,
-E000000003,There has been an incident at our branch where staff abuse occurred. Help ASAP,,Adam@blogs.co.uk,,SIR 08/05/20,66-666-99,Staff Abuse
-S000000002,Lol this is my second text message LOL bla bla bla which shouldnt work,7954443345,,,,,
-S000000003,Lol this is my third text message LOL bla bla bla which should work,7954443345,,,,,
+S000000001,Test sms message 1 no word abbreviations,7956560644,,,,,
+S000000002,Test sms message 2 WWJD with one word abbreviation,1316638945,,,,,
+S000000003,Test sms message 2 WWJD with three word abbreviations LOL plus AFK,79565606443,,,,,
+S000000003,Test sms message with duplicate ID - should not import,7956560644,,,,,
+S000000004,Test sms message with invalid phone number,thisisnotanumber,,,,,
+T000000001,Test twitter message with no hashtags or mentions,,,@TwitterName1,,,
+T000000002,Test twitter message with Hashtags and mentions as follows #LetsGo as well as #ELMFUN for the eyes of @ELM,,,@TwitterName2,,,
+T000000003,Test twitter message with all aditions #LetsGo #ELMFUN @ELM LOL and AFK,,,@TwitterName3,,,
+T000000003,Test twitter message using duplicate ID - should not import,,,@TwitterName4,,,
+E000000001,Test email message with no links,,Adam@blogs.co.uk,,Email subject test1,,
+E000000002,Test email message with some links such as https://google.com and www.google.com but not forgetting http://bbc.com,,joe@blogs.com,,Email subject test2,,
+E000000003,Test email message which is an SIR email,,Adam@blogs.co.uk,,SIR 08/05/20,66-666-99,Staff Abuse
+E000000004,Test email message which is an SIR email with invalid data,,Adam@blogs.co.uk,,SIR 8th of may,66-666-94,Staff
+E000000005,Test email message which is an SIR email with some links added such as https://google.com and www.google.com but not forgetting http://bbc.com,,Adam@blogs.co.uk,,SIR 08/05/20,66-666-99,Staff Abuse
+E000000002,Test email message usinig duplicate ID - should not import,,joe@blogs.com,,Duplicate ID test,,

@@ -37,6 +37,7 @@ namespace ELM__AM
             smsMessagesList.Items.Clear();
             emailMessageList.Items.Clear();
             twitterMessageList.Items.Clear();
+            SIRMessageList.Items.Clear();
             foreach (Sms item in data.smsMessages)
             {
                 var listItem = new ListViewItem(new string[] { item.ID, item.PhoneNumber, item.Textmessage });
@@ -74,7 +75,6 @@ namespace ELM__AM
             {
                 StreamReader streamReader = new StreamReader(dialog.FileName);
                 string[] input = new string[File.ReadAllLines(dialog.FileName).Length];
-                input = streamReader.ReadLine().Split(',');
                 while (!streamReader.EndOfStream)
                 {
                     input = streamReader.ReadLine().Split(',');
@@ -97,10 +97,9 @@ namespace ELM__AM
                         {
                             try
                             {
-                                Sms text = new Sms(input[0], input[2], ElmUtilities.WordAbreviations(input[1]), data);
+                                Sms text = new Sms(input[0], input[2],input[1], data);
                                 data.smsUniqueID.Add(text.ID);
                                 data.smsMessages.Add(text);
-                                UpdateListView();
                                 System.Threading.Thread.Sleep(500);
                             }
                             catch (Exception errorMessage)
@@ -110,7 +109,7 @@ namespace ELM__AM
                             }
                         }
                     }
-                    if (identifier.ToLower() == "e")
+                    else if (identifier.ToLower() == "e")
                     {
                         try
                         {
@@ -129,6 +128,7 @@ namespace ELM__AM
                                     Email item = new Email(input[0], input[5], input[3], input[1], input[6], input[7], data);
                                     data.SIRemailMessages.Add(item);
                                     data.emailUniqueID.Add(item.ID);
+                                    System.Threading.Thread.Sleep(500);
                                 }
                             }
                             else
@@ -146,7 +146,6 @@ namespace ELM__AM
                                     Email item = new Email(input[0], input[5], input[3], input[1], data);
                                     data.emailMessages.Add(item);
                                     data.emailUniqueID.Add(item.ID);
-                                    UpdateListView();
                                     System.Threading.Thread.Sleep(500);
                                 }
                             }
@@ -175,7 +174,6 @@ namespace ELM__AM
                                 data.twitterUniqueID.Add(tweet.ID);
                                 data.twitterHandleUse.Add(tweet.TwitterID);
                                 data.twitterMessages.Add(tweet);
-                                UpdateListView();
                                 System.Threading.Thread.Sleep(500);
                             }
                             catch (Exception errorMessage)
@@ -185,6 +183,7 @@ namespace ELM__AM
                             }
                         }
                     }
+                    UpdateListView();
                 }
                 if (data.importErrors.Count > 0)
                 {

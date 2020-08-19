@@ -25,11 +25,11 @@ namespace ELM__AM
             }
             else if (body.Length == 5)
             {
-                Subject = body[0];
                 EmailAddress = body[1];
                 EmailMessage = body[2];
-                BranchCode = body[3];
                 IncidentCode = body[4];
+                BranchCode = body[3];
+                Subject = body[0];
             }
             else
             {
@@ -41,20 +41,20 @@ namespace ELM__AM
         public Email(string id, string subject, string emailAddress, string emailMessage, DataCollection data)
         {
             ID = id;
-            Subject = subject;
             EmailAddress = emailAddress;
             EmailMessage = ElmUtilities.LinkCheck(emailMessage, data);
+            Subject = subject;
         }
 
         //SIR email constructor for import.
         public Email(string id, string subject, string emailAddress, string emailMessage, string branchCode, string incidentCode, DataCollection data)
         {
             ID = id;
-            Subject = subject;
             EmailAddress = emailAddress;
             EmailMessage = ElmUtilities.LinkCheck(emailMessage, data);
-            BranchCode = branchCode;
             IncidentCode = incidentCode;
+            BranchCode = branchCode;
+            Subject = subject;
         }
 
 
