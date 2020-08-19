@@ -140,20 +140,20 @@
             // BasicInstructions
             // 
             this.BasicInstructions.AutoSize = true;
-            this.BasicInstructions.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BasicInstructions.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BasicInstructions.Location = new System.Drawing.Point(24, 336);
+            this.BasicInstructions.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BasicInstructions.ForeColor = System.Drawing.Color.Black;
+            this.BasicInstructions.Location = new System.Drawing.Point(24, 333);
             this.BasicInstructions.Name = "BasicInstructions";
-            this.BasicInstructions.Size = new System.Drawing.Size(113, 15);
+            this.BasicInstructions.Size = new System.Drawing.Size(324, 15);
             this.BasicInstructions.TabIndex = 13;
-            this.BasicInstructions.Text = "Message Structures:";
+            this.BasicInstructions.Text = "Message Structures - (input is comma separated)";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label15.Location = new System.Drawing.Point(31, 356);
+            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.Location = new System.Drawing.Point(31, 357);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(202, 15);
             this.label15.TabIndex = 13;
@@ -163,8 +163,8 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label16.Location = new System.Drawing.Point(31, 375);
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(31, 378);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(255, 15);
             this.label16.TabIndex = 13;
@@ -174,8 +174,8 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label17.Location = new System.Drawing.Point(31, 397);
+            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.Location = new System.Drawing.Point(31, 401);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(408, 15);
             this.label17.TabIndex = 13;
@@ -185,8 +185,8 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label18.Location = new System.Drawing.Point(30, 418);
+            this.label18.ForeColor = System.Drawing.Color.Black;
+            this.label18.Location = new System.Drawing.Point(30, 423);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(177, 15);
             this.label18.TabIndex = 13;
@@ -198,7 +198,7 @@
             this.errorBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.errorBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.errorBox.ForeColor = System.Drawing.Color.OrangeRed;
-            this.errorBox.Location = new System.Drawing.Point(22, 444);
+            this.errorBox.Location = new System.Drawing.Point(22, 449);
             this.errorBox.Name = "errorBox";
             this.errorBox.Size = new System.Drawing.Size(417, 75);
             this.errorBox.TabIndex = 14;
